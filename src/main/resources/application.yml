@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost
+      port: 27017
+      database: jap_sen
+
+  messages:
+    encoding: UTF-8
+    basename: bundle
