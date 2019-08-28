@@ -19,7 +19,20 @@ public class Grammar {
     @Id
     private String id;
 
-    private List<String> grammarCreate;
+    private List<PartOfSpeech> grammarCreate;
 
-    //private
+    private PartOfSpeech resultPartOfSpeech;
+
+    private List<TranslateEntity> grammarComment;
+
+    public Grammar(List<PartOfSpeech> grammarCreate, List<TranslateEntity> grammarComment) {
+        this.grammarCreate = grammarCreate;
+        this.grammarComment = grammarComment;
+    }
+
+    public Grammar(List<PartOfSpeech> grammarCreate, PartOfSpeech resultPartOfSpeech, List<TranslateEntity> grammarComment) {
+        this.grammarCreate = grammarCreate;
+        this.resultPartOfSpeech = resultPartOfSpeech;
+        this.grammarComment = grammarComment;
+    }
 }

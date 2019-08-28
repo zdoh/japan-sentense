@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document
-public class WordType {
+public class PartOfSpeech {
 
     @Id
     private String id;
@@ -23,13 +23,13 @@ public class WordType {
 
     private String japanName;
 
-    public WordType(String shortName, List<TranslateEntity> translateName, String japanName) {
+    public PartOfSpeech(String shortName, List<TranslateEntity> translateName, String japanName) {
         this.shortName = shortName;
         this.translateName = translateName;
         this.japanName = japanName;
     }
 
-    public WordType(String shortName, List<TranslateEntity> translateName) {
+    public PartOfSpeech(String shortName, List<TranslateEntity> translateName) {
         this.shortName = shortName;
         this.translateName = translateName;
     }

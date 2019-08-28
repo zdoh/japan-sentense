@@ -23,13 +23,13 @@ public class Word {
 
     private List<TranslateEntity> translateEntities;
 
-    private List<WordType> wordTypes;
+    private List<PartOfSpeech> partOfSpeeches;
 
-    public Word(String wordKanji, String pronunciation, List<TranslateEntity> translateEntities, List<WordType> wordTypes) {
+    public Word(String wordKanji, String pronunciation, List<TranslateEntity> translateEntities, List<PartOfSpeech> partOfSpeeches) {
         this.wordKanji = wordKanji;
         this.pronunciation = pronunciation;
         this.translateEntities = translateEntities;
-        this.wordTypes = wordTypes;
+        this.partOfSpeeches = partOfSpeeches;
     }
 
     public Word(String wordKanji) {

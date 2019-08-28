@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import ru.zdoher.japs.domain.Grammar;
+import ru.zdoher.japs.domain.Word;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class Sentence {
 
     private String sentence;
 
-    @DBRef
+    //@DBRef
     private List<SentenceTranslate> translateList;
 
     private String sentenceSource;
@@ -31,6 +32,8 @@ public class Sentence {
     private Boolean conversation;
 
     private List<Grammar> grammarList;
+
+    private List<Word> words;
 
     public Sentence(String sentence, List<SentenceTranslate> translateList, String sentenceSource, SentencePoliteness politeness, Boolean conversation) {
         this.sentence = sentence;
@@ -47,5 +50,15 @@ public class Sentence {
         this.politeness = politeness;
         this.conversation = conversation;
         this.grammarList = grammarList;
+    }
+
+    public Sentence(String sentence, List<SentenceTranslate> translateList, String sentenceSource, SentencePoliteness politeness, Boolean conversation, List<Grammar> grammarList, List<Word> words) {
+        this.sentence = sentence;
+        this.translateList = translateList;
+        this.sentenceSource = sentenceSource;
+        this.politeness = politeness;
+        this.conversation = conversation;
+        this.grammarList = grammarList;
+        this.words = words;
     }
 }

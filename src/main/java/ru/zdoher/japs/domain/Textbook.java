@@ -33,20 +33,21 @@ public class Textbook {
 
     private List<Lesson> lessonList;
 
-    public Textbook(String japaneseName, String englishName, Boolean show) {
-        this.japaneseName = japaneseName;
-        this.englishName = englishName;
-        this.show = show;
-        textbookType = new ArrayList<>();
-        lessonList = new ArrayList<>();
-    }
-
     public Textbook(String japaneseName, String englishName, TextbookSeries textbookSeries, Boolean show) {
         this.japaneseName = japaneseName;
         this.englishName = englishName;
         this.textbookSeries = textbookSeries;
         this.show = show;
         textbookType = new ArrayList<>();
+        lessonList = new ArrayList<>();
+    }
+
+    public Textbook(String japaneseName, String englishName, TextbookSeries textbookSeries, Boolean show, List<TextbookType> textbookType) {
+        this.japaneseName = japaneseName;
+        this.englishName = englishName;
+        this.textbookSeries = textbookSeries;
+        this.show = show;
+        this.textbookType = textbookType;
         lessonList = new ArrayList<>();
     }
 }
