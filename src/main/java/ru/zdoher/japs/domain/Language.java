@@ -15,7 +15,6 @@ public class Language {
     @Id
     private String id;
 
-
     private String shortName;
 
     private String fullName;

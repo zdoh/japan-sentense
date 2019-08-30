@@ -21,7 +21,6 @@ public class SentencePoliteness {
 
     private String japName;
 
-    //@DBRef
     private List<TranslateEntity> translateEntities;
 
     public SentencePoliteness(String japName, List<TranslateEntity> translateEntities) {

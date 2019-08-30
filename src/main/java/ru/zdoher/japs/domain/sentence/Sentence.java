@@ -22,7 +22,6 @@ public class Sentence {
 
     private String sentence;
 
-    //@DBRef
     private List<SentenceTranslate> translateList;
 
     private String sentenceSource;

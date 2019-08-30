@@ -12,11 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@Document
 public class SentenceTranslate {
-
-    //@Id
-    //private String id;
 
     // язык перевода
     private Language language;
