@@ -28,8 +28,6 @@ public class InitMongoDBDataChangeLog {
     private final String BASIC_KANJI_BOOK_S = "Basic kanji book";
     private final String BASIC_KANJI_BOOK_1 = "Basic kanji book I";
 
-
-
     private Language langRu;
     private Language langEn;
 
@@ -1107,29 +1105,29 @@ public class InitMongoDBDataChangeLog {
 
     @ChangeSet(order = "006", id = "initialKunyomiWord", author = "zdoh", runAlways = true)
     public void initialKunyomiWord(MongoTemplate template) {
-        wordsMap.put("ひと", template.save(new Word("ひと")));
-        wordsMap.put("ふた", template.save(new Word("ふた")));
-        wordsMap.put("み", template.save(new Word("み")));
-        wordsMap.put("みっ", template.save(new Word("みっ")));
-        wordsMap.put("よ", template.save(new Word("よ")));
-        wordsMap.put("よつ", template.save(new Word("よつっ")));
-        wordsMap.put("よん", template.save(new Word("よん")));
-        wordsMap.put("いつ", template.save(new Word("いつ")));
-        wordsMap.put("むつ", template.save(new Word("むつ")));
-        wordsMap.put("むい", template.save(new Word("むい")));
-        wordsMap.put("なな", template.save(new Word("なな")));
-        wordsMap.put("なの", template.save(new Word("なの")));
-        wordsMap.put("や", template.save(new Word("や")));
-        wordsMap.put("やつ", template.save(new Word("やつ")));
-        wordsMap.put("よう", template.save(new Word("よう")));
-        wordsMap.put("ここの", template.save(new Word("ここの")));
-        wordsMap.put("と", template.save(new Word("と")));
-        wordsMap.put("かた", template.save(new Word("かた")));
-        wordsMap.put("もと", template.save(new Word("もと")));
-        wordsMap.put("か", template.save(new Word("か")));
-        wordsMap.put("おお", template.save(new Word("おお")));
-        wordsMap.put("こ", template.save(new Word("こ")));
-        wordsMap.put("ほ", template.save(new Word("ほ")));
+        wordsMap.put("ひと", template.save(new Word("ひと", true)));
+        wordsMap.put("ふた", template.save(new Word("ふた", true)));
+        wordsMap.put("み", template.save(new Word("み", true)));
+        wordsMap.put("みっ", template.save(new Word("みっ", true)));
+        wordsMap.put("よ", template.save(new Word("よ", true)));
+        wordsMap.put("よつ", template.save(new Word("よつっ", true)));
+        wordsMap.put("よん", template.save(new Word("よん", true)));
+        wordsMap.put("いつ", template.save(new Word("いつ", true)));
+        wordsMap.put("むつ", template.save(new Word("むつ", true)));
+        wordsMap.put("むい", template.save(new Word("むい", true)));
+        wordsMap.put("なな", template.save(new Word("なな", true)));
+        wordsMap.put("なの", template.save(new Word("なの", true)));
+        wordsMap.put("や", template.save(new Word("や", true)));
+        wordsMap.put("やつ", template.save(new Word("やつ", true)));
+        wordsMap.put("よう", template.save(new Word("よう", true)));
+        wordsMap.put("ここの", template.save(new Word("ここの", true)));
+        wordsMap.put("と", template.save(new Word("と", true)));
+        wordsMap.put("かた", template.save(new Word("かた", true)));
+        wordsMap.put("もと", template.save(new Word("もと", true)));
+        wordsMap.put("か", template.save(new Word("か", true)));
+        wordsMap.put("おお", template.save(new Word("おお", true)));
+        wordsMap.put("こ", template.save(new Word("こ", true)));
+        wordsMap.put("ほ", template.save(new Word("ほ", true)));
 
 
     }
@@ -1745,7 +1743,7 @@ public class InitMongoDBDataChangeLog {
         textbookMap.get(MINNA_KANJI_1).getLessonList().get(1).setWordList(minnaKanjiWordsL1);
 
         textbookMap.get(BASIC_KANJI_BOOK_1).getLessonList().get(0).setWordList(basicKanjiBookWordsL1);
-
+        textbookMap.get(BASIC_KANJI_BOOK_1).getLessonList().get(1).setWordList(basicKanjiBookWordsL2);
 
         template.save(textbookMap.get(MINNA_GR_1));
 

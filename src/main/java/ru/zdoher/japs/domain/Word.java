@@ -25,14 +25,17 @@ public class Word {
 
     private List<PartOfSpeech> partOfSpeeches;
 
+    private boolean dontShow;
+
+    public Word(String wordKanji, boolean dontShow) {
+        this.wordKanji = wordKanji;
+        this.dontShow = dontShow;
+    }
+
     public Word(String wordKanji, String pronunciation, List<TranslateEntity> translateEntities, List<PartOfSpeech> partOfSpeeches) {
         this.wordKanji = wordKanji;
         this.pronunciation = pronunciation;
         this.translateEntities = translateEntities;
         this.partOfSpeeches = partOfSpeeches;
-    }
-
-    public Word(String wordKanji) {
-        this.wordKanji = wordKanji;
     }
 }
