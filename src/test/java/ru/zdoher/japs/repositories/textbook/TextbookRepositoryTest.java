@@ -10,7 +10,7 @@ import ru.zdoher.japs.domain.textbook.Textbook;
 import ru.zdoher.japs.domain.textbook.TextbookSeries;
 import ru.zdoher.japs.domain.textbook.TextbookType;
 import ru.zdoher.japs.repositories.LanguageRepository;
-import ru.zdoher.japs.repositories.NameHelper;
+import ru.zdoher.japs.NameHelper;
 
 import java.util.List;
 

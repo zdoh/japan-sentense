@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import ru.zdoher.japs.NameHelper;
 import ru.zdoher.japs.domain.Grammar;
 import ru.zdoher.japs.domain.Language;
 import ru.zdoher.japs.domain.PartOfSpeech;

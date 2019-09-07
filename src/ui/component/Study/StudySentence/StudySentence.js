@@ -7,10 +7,10 @@ import Col from "react-bootstrap/Col";
 import Option from "../../Option/Option";
 
 class StudySentence extends Component {
+  option = new Option();
 
   state = {
     sentence: null,
-    option: new Option()
   };
 
   componentDidMount() {
@@ -50,7 +50,7 @@ class StudySentence extends Component {
       const sent = {...this.state.sentence};
 
       let politeness = sent.politeness.translateEntities.filter(p => {
-        return p.language.shortName === this.state.option.getLanguage();
+        return p.language.shortName === this.option.getLanguage();
       }).map(p => {
         return p.translate;
       });
@@ -60,7 +60,7 @@ class StudySentence extends Component {
       question = (
         <div>
           <Row className="justify-content-md-center">{sent.translateList.filter(s => {
-            return s.language.shortName === this.state.option.getLanguage();
+            return s.language.shortName === this.option.getLanguage();
           }).map(s => {
             return s.translate;
           })}

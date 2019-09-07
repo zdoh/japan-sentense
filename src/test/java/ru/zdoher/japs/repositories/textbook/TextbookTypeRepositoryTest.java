@@ -5,10 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import ru.zdoher.japs.domain.Language;
 import ru.zdoher.japs.domain.TranslateEntity;
-import ru.zdoher.japs.domain.textbook.TextbookSeries;
 import ru.zdoher.japs.domain.textbook.TextbookType;
 import ru.zdoher.japs.repositories.LanguageRepository;
-import ru.zdoher.japs.repositories.NameHelper;
+import ru.zdoher.japs.NameHelper;
 
 import java.util.List;
 

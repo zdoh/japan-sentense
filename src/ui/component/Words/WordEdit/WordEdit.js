@@ -7,11 +7,11 @@ import Button from "../../Button/Button";
 import Option from "../../Option/Option";
 
 class WordEdit extends Component {
+  option = new Option();
 
   state = {
     word: null,
     loaded: false,
-    option: new Option()
   };
 
   componentDidMount() {
@@ -41,7 +41,7 @@ class WordEdit extends Component {
     if (event.target.name === "translate.ru") {
       word.translateEntities
         .filter(a => {
-          return a.language.shortName === this.state.option.getLanguage()
+          return a.language.shortName === this.option.getLanguage()
         })
         .map(a => {
           return a.translate = event.target.value;
@@ -81,7 +81,7 @@ class WordEdit extends Component {
                    change={this.wordChangeHandler} classNames="justify-content-md-center"/>
             <Input elementType="input" labelSize="2" colSize="8" label="Перевод"
                    value={word.translateEntities.filter(a => {
-                     return a.language.shortName === this.state.option.getLanguage()
+                     return a.language.shortName === this.option.getLanguage()
                    }).map(a => {
                      return a.translate
                    })}

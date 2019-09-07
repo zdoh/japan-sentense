@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import ru.zdoher.japs.domain.textbook.TextbookSeries;
-import ru.zdoher.japs.repositories.NameHelper;
+import ru.zdoher.japs.NameHelper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

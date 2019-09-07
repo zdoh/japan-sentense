@@ -7,10 +7,10 @@ import Option from "../Option/Option";
 import InProgress from "../InProgress/InProgress";
 
 class Words extends Component {
+  option = new Option();
 
   state = {
     words: [],
-    option: new Option()
   };
 
   componentDidMount() {
@@ -49,7 +49,7 @@ class Words extends Component {
               <td className="col-6">
                 {
                   word.translateEntities.filter(a => {
-                    return a.language.shortName === this.state.option.getLanguage()
+                    return a.language.shortName === this.option.getLanguage()
                   }).map(a => {
                     return a.translate
                   })

@@ -6,10 +6,11 @@ import Quiz from "../Quiz/Quiz";
 import Option from "../../Option/Option";
 
 class StudyWord extends Component {
+  option = new Option();
 
   state = {
     word: null,
-    option: new Option()
+
   };
 
   componentDidMount() {
@@ -62,7 +63,7 @@ class StudyWord extends Component {
           </Row>
           <Row className="justify-content-md-center">
             {word.translateEntities.filter(w => {
-            return w.language.shortName === this.state.option.getLanguage();
+            return w.language.shortName === this.option.getLanguage();
             }).map(w => {
               return w.translate;
             })}

@@ -6,10 +6,10 @@ import {Container} from "react-bootstrap";
 import Quiz from "../Quiz/Quiz";
 
 class StudyKanji extends Component {
+  option = new Option();
 
   state = {
     kanji: null,
-    option: new Option()
   };
 
   componentDidMount() {
@@ -59,7 +59,7 @@ class StudyKanji extends Component {
         <Container>
           <Row className="justify-content-md-center">
             Значение: {kanji.meaning.filter(p => {
-              return p.language.shortName === this.state.option.getLanguage();
+              return p.language.shortName === this.option.getLanguage();
             }).map(p => {
               return p.translate;
             })}
@@ -75,7 +75,7 @@ class StudyKanji extends Component {
           </Row>
           <Row className="justify-content-md-center">
             Якорь: {kanji.anchor.wordKanji} ({kanji.anchor.pronunciation}) - {kanji.anchor.translateEntities.filter(w => {
-            return w.language.shortName === this.state.option.getLanguage();
+            return w.language.shortName === this.option.getLanguage();
           }).map(w => {
             return w.translate;
           })}

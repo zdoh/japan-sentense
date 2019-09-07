@@ -10,7 +10,7 @@ import ru.zdoher.japs.domain.sentence.Sentence;
 import ru.zdoher.japs.domain.sentence.SentencePoliteness;
 import ru.zdoher.japs.domain.sentence.SentenceTranslate;
 import ru.zdoher.japs.repositories.LanguageRepository;
-import ru.zdoher.japs.repositories.NameHelper;
+import ru.zdoher.japs.NameHelper;
 
 import java.util.List;
 

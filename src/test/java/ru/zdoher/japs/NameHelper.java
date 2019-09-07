@@ -1,8 +1,8 @@
-package ru.zdoher.japs.repositories;
+package ru.zdoher.japs;
 
 public class NameHelper {
-    static final String GRAMMAR_NAME = "test_gr_name";
-    static final String POS_NAME = "part_of_speech_name";
+    public static final String GRAMMAR_NAME = "test_gr_name";
+    public static final String POS_NAME = "part_of_speech_name";
     public static final String LANGUAGE_SHORT_NAME = "language_short_name";
     public static final String LANGUAGE_FULL_NAME = "language_full_name";
     public static final String TEXTBOOK_SERIES_NAME = "textbook_series_name";
@@ -20,10 +20,10 @@ public class NameHelper {
 
 
 
-    static final String KANJI_KANJI = "kanji";
-    static final String KANJI_ONYUMI = "onyumi";
-    static final String WORD_WORDKANJI = "word_kanji";
-    static final String WORD_PRONUNCIATION = "word_pronunciation";
+    public static final String KANJI_KANJI = "kanji";
+    public static final String KANJI_ONYUMI = "onyumi";
+    public static final String WORD_WORDKANJI = "word_kanji";
+    public static final String WORD_PRONUNCIATION = "word_pronunciation";
 
     private NameHelper() {
     }

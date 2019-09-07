@@ -19,13 +19,12 @@ public class WordController {
         this.wordRepositories = wordRepositories;
     }
 
-    //@CrossOrigin(origins = "http://localhost:3000")
+
     @GetMapping("/words")
     public List<WordDto> getAll() {
         return wordRepositories.findAll().stream().map(WordDto::toDto).collect(Collectors.toList());
     }
 
-    //@CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping(value =  "/word/{id}")
     public void delete(@PathVariable("id") String id) {
         wordRepositories.deleteById(id);
@@ -39,9 +38,7 @@ public class WordController {
 
     @PostMapping("/word")
     public void insert(@RequestBody WordDto wordDto) {
-
-        Word word = wordRepositories.save(wordDto.fromDto());
-        System.out.println("save " + word);
+        wordRepositories.save(wordDto.fromDto());
     }
 
     @GetMapping("/study/word")

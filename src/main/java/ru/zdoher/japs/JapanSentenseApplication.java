@@ -15,8 +15,8 @@ public class JapanSentenseApplication {
         SpringApplication.run(JapanSentenseApplication.class, args);
     }
 
-
-    @Bean
+    // для отдельной разработки ui
+    /*@Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
@@ -24,5 +24,5 @@ public class JapanSentenseApplication {
                 registry.addMapping("/**").allowedOrigins("http://localhost:3000");
             }
         };
-    }
+    }*/
 }

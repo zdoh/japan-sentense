@@ -16,11 +16,6 @@ module.exports = {
         port: 9000,
         host: 'localhost',
         open: true,
-        before: (app) => {
-            app.get('/api/persons', (req, res) => res.send([
-                {id: '1', name: 'Привяу'}
-            ]));
-        }
     },
 
     module: {
