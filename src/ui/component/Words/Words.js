@@ -18,7 +18,7 @@ class Words extends Component {
   }
 
   getWords() {
-    axios.get('/words')
+    axios.get('/word/')
       .then(response => {
         this.setState({
           words: response.data

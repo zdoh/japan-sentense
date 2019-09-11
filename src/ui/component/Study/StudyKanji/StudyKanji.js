@@ -17,7 +17,7 @@ class StudyKanji extends Component {
   }
 
   getRandSentence() {
-    axios.get('/study/kanji')
+    axios.get('/kanji/random')
       .then(response => {
         this.setState({
           kanji: response.data,

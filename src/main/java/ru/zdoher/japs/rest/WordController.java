@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/word")
 public class WordController {
 
     private final WordRepositories wordRepositories;
@@ -20,28 +20,28 @@ public class WordController {
     }
 
 
-    @GetMapping("/words")
+    @GetMapping("/")
     public List<WordDto> getAll() {
         return wordRepositories.findAll().stream().map(WordDto::toDto).collect(Collectors.toList());
     }
 
-    @DeleteMapping(value =  "/word/{id}")
+    @DeleteMapping(value =  "/{id}")
     public void delete(@PathVariable("id") String id) {
         wordRepositories.deleteById(id);
     }
 
 
-    @GetMapping("/word/{id}")
+    @GetMapping("/{id}")
     public Optional<WordDto> getById(@PathVariable("id") String id) {
         return wordRepositories.findById(id).map(WordDto::toDto);
     }
 
-    @PostMapping("/word")
+    @PutMapping("/")
     public void insert(@RequestBody WordDto wordDto) {
         wordRepositories.save(wordDto.fromDto());
     }
 
-    @GetMapping("/study/word")
+    @GetMapping("/random")
     public WordDto getRandom() {
         return WordDto.toDto(wordRepositories.getRandom());
     }

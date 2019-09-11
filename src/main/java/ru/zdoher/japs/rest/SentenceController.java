@@ -7,7 +7,7 @@ import ru.zdoher.japs.repositories.sentence.SentenceRepository;
 import ru.zdoher.japs.rest.dto.SentenceDto;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/sentence")
 public class SentenceController {
     private final SentenceRepository sentenceRepository;
 
@@ -15,7 +15,7 @@ public class SentenceController {
         this.sentenceRepository = sentenceRepository;
     }
 
-    @GetMapping("/study/sentence")
+    @GetMapping("/random")
     public SentenceDto getStudySentence() {
         return SentenceDto.toDto(sentenceRepository.getRandom());
     }

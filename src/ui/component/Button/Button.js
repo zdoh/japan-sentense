@@ -13,7 +13,7 @@ const button = (props) => {
       buttonElement = (
         <Form.Group as={Row}>
           <Col sm={{span: 10, offset: 2}}>
-            <Button type="submit">{props.buttonName}</Button>
+            <Button type="button">{props.buttonName}</Button>
           </Col>
         </Form.Group>
       );
@@ -23,7 +23,7 @@ const button = (props) => {
       buttonElement = (
         <Form.Group as={Row}>
           <Col sm={{span: 10, offset: 2}}>
-            <Button type="submit">{props.buttonName}</Button>
+            <Button type="button">{props.buttonName}</Button>
           </Col>
         </Form.Group>
       );

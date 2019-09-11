@@ -18,7 +18,7 @@ class StudySentence extends Component {
   }
 
   getRandSentence() {
-    axios.get('/study/sentence')
+    axios.get('/sentence/random')
       .then(response => {
         this.setState({
           sentence: response.data,

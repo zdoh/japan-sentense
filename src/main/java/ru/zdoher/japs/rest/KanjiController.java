@@ -8,7 +8,7 @@ import ru.zdoher.japs.repositories.KanjiRepository;
 import ru.zdoher.japs.rest.dto.KanjiDto;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/kanji")
 public class KanjiController {
     private final KanjiRepository kanjiRepository;
 
@@ -16,7 +16,7 @@ public class KanjiController {
         this.kanjiRepository = kanjiRepository;
     }
 
-    @GetMapping("/study/kanji")
+    @GetMapping("/random")
     public KanjiDto getRandom() {
         return KanjiDto.toDto(kanjiRepository.getRandom());
     }

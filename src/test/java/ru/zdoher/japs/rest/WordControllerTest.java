@@ -72,7 +72,7 @@ class WordControllerTest {
 
         given(wordRepositories.findAll()).willReturn(words);
 
-        mockMvc.perform(get("http://localhost:8080/api/words")
+        mockMvc.perform(get("http://localhost:8080/api/word/")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(mapper.writeValueAsString(words)));
@@ -103,7 +103,7 @@ class WordControllerTest {
 
         when(wordRepositories.save(any(Word.class))).thenReturn(word);
 
-        mockMvc.perform(post("http://localhost:8080/api/word")
+        mockMvc.perform(put("http://localhost:8080/api/word/")
                 .content(mapper.writeValueAsString(WordDto.toDto(word)))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());

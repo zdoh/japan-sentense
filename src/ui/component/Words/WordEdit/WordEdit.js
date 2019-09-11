@@ -58,8 +58,8 @@ class WordEdit extends Component {
   updateWordHandler = (event) => {
     event.preventDefault();
 
-    axios.post(`/word`, this.state.word)
-      .then(
+    axios.put(`/word/`, this.state.word)
+      .then(() =>
         this.props.history.push("/words")
       ).catch(error => {
       console.log(error);
