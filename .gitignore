@@ -1,7 +1,12 @@
 .idea
 .mvn
-target
+
+target/
+node_modules/
+node/
 
 mvnw
 mvnw.cmd
-japan-sentense.iml
+*.iml
+
+package-lock.json
