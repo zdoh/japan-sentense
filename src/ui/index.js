@@ -8,9 +8,9 @@ import {BrowserRouter} from "react-router-dom";
 axios.defaults.baseURL = 'http://localhost:8080/api';
 
 const app = (
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+    <BrowserRouter>
+        <App/>
+    </BrowserRouter>
 );
 
 ReactDOM.render(app, document.getElementById('root'));
