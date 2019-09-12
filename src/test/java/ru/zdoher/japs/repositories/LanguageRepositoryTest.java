@@ -4,12 +4,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 import ru.zdoher.japs.NameHelper;
 import ru.zdoher.japs.domain.Language;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-/*
 @DisplayName("Class - LanguageRepository")
 @DataMongoTest
 class LanguageRepositoryTest {
@@ -20,14 +22,21 @@ class LanguageRepositoryTest {
     @Test
     @DisplayName(" language add and get - success")
     void languageAddAndGet() {
-        Language addedLanguage = languageRepository.insert(
-                new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME));
+        Language addedLanguage = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
 
-        Language language = languageRepository.findById(addedLanguage.getId()).orElse(null);
+        languageRepository.save(addedLanguage).block();
 
-        assertThat(language).isNotNull()
-                .matches( l -> NameHelper.LANGUAGE_SHORT_NAME.equals(l.getShortName()))
-                .matches( l -> NameHelper.LANGUAGE_FULL_NAME.equals(l.getFullName()));
+        Mono<Language> languageResult = languageRepository.findById(addedLanguage.getId());
 
+        StepVerifier
+                .create(languageResult)
+                .expectNextMatches(language -> {
+                    assertNotNull(language);
+                    assertThat(language.getShortName()).isEqualTo(NameHelper.LANGUAGE_SHORT_NAME);
+                    assertThat(language.getFullName()).isEqualTo(NameHelper.LANGUAGE_FULL_NAME);
+                    return true;
+                })
+                .expectComplete()
+                .verify();
     }
-}*/
+}

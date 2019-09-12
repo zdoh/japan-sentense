@@ -4,6 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 import ru.zdoher.japs.NameHelper;
 import ru.zdoher.japs.domain.Language;
 import ru.zdoher.japs.domain.PartOfSpeech;
@@ -12,8 +14,8 @@ import ru.zdoher.japs.domain.TranslateEntity;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-/*
 @DisplayName("Class PartOfSpeech")
 @DataMongoTest
 class PartOfSpeechRepositoryTest {
@@ -27,16 +29,25 @@ class PartOfSpeechRepositoryTest {
     @Test
     @DisplayName(" partOfSpeech add and get - success")
     void partOfSpeechAddAndGet() {
-        Language language = languageRepository.insert(new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME));
+        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
         TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
-        PartOfSpeech addedPartOfSpeech = partOfSpeechRepository.insert(new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity)));
+        PartOfSpeech addedPartOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
 
-        PartOfSpeech partOfSpeech = partOfSpeechRepository.findById(addedPartOfSpeech.getId()).orElse(null);
+        partOfSpeechRepository.save(addedPartOfSpeech).block();
 
-        assertThat(partOfSpeech).isNotNull()
-                .matches( p -> NameHelper.POS_NAME.equals(p.getShortName()))
-                .matches( p -> NameHelper.TRANSLATE_STR.equals(p.getTranslateName().get(0).getTranslate()))
-                .matches( p -> NameHelper.LANGUAGE_SHORT_NAME.equals(p.getTranslateName().get(0).getLanguage().getShortName()));
+        Mono<PartOfSpeech> partOfSpeechResult = partOfSpeechRepository.findById(addedPartOfSpeech.getId());
+
+        StepVerifier
+                .create(partOfSpeechResult)
+                .expectNextMatches(partOfSpeech -> {
+                    assertNotNull(partOfSpeech);
+                    assertThat(partOfSpeech.getShortName()).isEqualTo(NameHelper.POS_NAME);
+                    assertThat(partOfSpeech.getTranslateName().get(0).getTranslate()).isEqualTo(NameHelper.TRANSLATE_STR);
+                    assertThat(partOfSpeech.getTranslateName().get(0).getLanguage().getShortName()).isEqualTo(NameHelper.LANGUAGE_SHORT_NAME);
+                    return true;
+                })
+                .expectComplete()
+                .verify();
 
     }
-}*/
+}
