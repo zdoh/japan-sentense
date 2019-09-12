@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("Class - SentenceRepository")
+/*@DisplayName("Class - SentenceRepository")
 @DataMongoTest
 class SentenceRepositoryTest {
 
@@ -61,4 +61,4 @@ class SentenceRepositoryTest {
 
     }
 
-}
+}*/

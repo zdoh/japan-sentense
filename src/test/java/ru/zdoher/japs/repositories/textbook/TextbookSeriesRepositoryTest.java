@@ -9,6 +9,7 @@ import ru.zdoher.japs.NameHelper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/*
 @DisplayName("Class - TextbookSeries")
 @DataMongoTest
 class TextbookSeriesRepositoryTest {
@@ -31,4 +32,4 @@ class TextbookSeriesRepositoryTest {
                 .matches( t -> NameHelper.TEXTBOOK_SERIES_ENGLISHNAME.equals(t.getEnglishName()));
 
     }
-}
+}*/

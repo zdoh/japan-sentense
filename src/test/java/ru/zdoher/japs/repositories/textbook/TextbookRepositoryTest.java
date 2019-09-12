@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/*
 @DisplayName("Class - TextbookRepository")
 @DataMongoTest
 class TextbookRepositoryTest {
@@ -60,4 +61,4 @@ class TextbookRepositoryTest {
                 .matches( t -> NameHelper.TEXTBOOK_SERIES_NAME.equals(t.getTextbookSeries().getName()))
                 .matches( t -> NameHelper.TEXTBOOK_TYPE_NAME.equals(t.getTextbookType().get(0).getName()));
     }
-}
+}*/

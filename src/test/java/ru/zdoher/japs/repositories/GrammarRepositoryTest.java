@@ -14,6 +14,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/*
 @DisplayName("Class GrammarRepository")
 @DataMongoTest
 class GrammarRepositoryTest {
@@ -44,4 +45,4 @@ class GrammarRepositoryTest {
                 .matches( g -> NameHelper.TRANSLATE_STR.equals(g.getGrammarCreate().get(0).getTranslateName().get(0).getTranslate()))
                 .matches( g -> NameHelper.LANGUAGE_SHORT_NAME.equals(g.getGrammarCreate().get(0).getTranslateName().get(0).getLanguage().getShortName()));
     }
-}
+}*/

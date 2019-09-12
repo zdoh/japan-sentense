@@ -11,6 +11,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/*
 @DisplayName("Class - KanjiRepository")
 @DataMongoTest
 class KanjiRepositoryTest {
@@ -58,4 +59,4 @@ class KanjiRepositoryTest {
 
     }
 
-}
+}*/

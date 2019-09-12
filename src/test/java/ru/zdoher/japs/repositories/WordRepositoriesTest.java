@@ -14,6 +14,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/*
 @DisplayName("Class - Word")
 @DataMongoTest
 class WordRepositoriesTest {
@@ -51,4 +52,4 @@ class WordRepositoriesTest {
                 .matches( w -> NameHelper.POS_NAME.equals(w.getPartOfSpeeches().get(0).getShortName()))
                 .matches( w -> NameHelper.TRANSLATE_STR.equals(w.getPartOfSpeeches().get(0).getTranslateName().get(0).getTranslate()));
     }
-}
+}*/

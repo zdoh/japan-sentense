@@ -25,6 +25,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/*
 @DisplayName("Class WordController")
 @RunWith(SpringRunner.class)
 @WebMvcTest(WordController.class)
@@ -110,4 +111,4 @@ class WordControllerTest {
 
         verify(wordRepositories, times(1)).save(any(Word.class));
     }
-}
+}*/
