@@ -43,7 +43,7 @@ public class WordController {
 
     @GetMapping("/random")
     public WordDto getRandom() {
-        return WordDto.toDto(wordRepositories.getRandom());
+        return WordDto.toDto(wordRepositories.getRandom(Word.class));
     }
 
 }

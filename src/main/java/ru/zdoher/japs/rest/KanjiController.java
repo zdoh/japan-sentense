@@ -18,6 +18,6 @@ public class KanjiController {
 
     @GetMapping("/random")
     public KanjiDto getRandom() {
-        return KanjiDto.toDto(kanjiRepository.getRandom());
+        return KanjiDto.toDto(kanjiRepository.getRandom(Kanji.class));
     }
 }
