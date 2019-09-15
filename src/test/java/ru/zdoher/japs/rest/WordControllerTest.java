@@ -46,7 +46,7 @@ class WordControllerTest {
     private ObjectMapper mapper = new ObjectMapper();*/
 
     @DisplayName(" get Word by id - success")
-    @Test
+    //@Test
     void getById() {
 
         RouterFunction function = RouterFunctions.route(
