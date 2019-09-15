@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -24,7 +25,7 @@ import java.util.List;
 import static org.mockito.BDDMockito.given;
 
 @DisplayName("Class WordController")
-@SpringBootTest
+@WebFluxTest(WordController.class)
 class WordControllerTest {
 
     @Autowired
@@ -45,9 +46,7 @@ class WordControllerTest {
         Word word = new Word("1", NameHelper.WORD_WORDKANJI, NameHelper.WORD_PRONUNCIATION,
                 List.of(translateEntity), List.of(partOfSpeech), false);
 
-        Mono<Word> wordMono = Mono.just(word);
-
-        given(wordRepositories.findById(word.getId())).willReturn(wordMono);
+        given(wordRepositories.findById(word.getId())).willReturn(Mono.just(word));
 
         WebTestClient
                 .bindToController(wordController)
