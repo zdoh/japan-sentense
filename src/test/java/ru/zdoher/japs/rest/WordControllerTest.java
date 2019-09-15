@@ -1,5 +1,6 @@
 package ru.zdoher.japs.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,99 +9,71 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.reactive.function.server.RequestPredicates;
-import org.springframework.web.reactive.function.server.RouterFunction;
-import org.springframework.web.reactive.function.server.RouterFunctions;
-import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Mono;
+import ru.zdoher.japs.NameHelper;
 import ru.zdoher.japs.domain.Language;
 import ru.zdoher.japs.domain.PartOfSpeech;
 import ru.zdoher.japs.domain.TranslateEntity;
 import ru.zdoher.japs.domain.Word;
-import ru.zdoher.japs.NameHelper;
 import ru.zdoher.japs.repositories.WordRepositories;
-import ru.zdoher.japs.rest.dto.WordDto;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("Class WordController")
-@RunWith(SpringRunner.class)
 @SpringBootTest
 class WordControllerTest {
 
-/*    @Autowired
-    private MockMvc mockMvc;
+    @Autowired
+    private WordController wordController;
 
     @MockBean
     private WordRepositories wordRepositories;
 
-    private ObjectMapper mapper = new ObjectMapper();*/
+    private ObjectMapper mapper = new ObjectMapper();
 
     @DisplayName(" get Word by id - success")
-    //@Test
-    void getById() {
+    @Test
+    void getById() throws JsonProcessingException {
 
-        RouterFunction function = RouterFunctions.route(
-                RequestPredicates.GET("/api/word/"),
-                request -> ServerResponse.ok().build()
-        );
-
-        WebTestClient
-                .bindToRouterFunction(function)
-                .build().get().uri("/api/word/")
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody().isEmpty();
-
-
-        /*Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
+        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
         TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
         PartOfSpeech partOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
         Word word = new Word("1", NameHelper.WORD_WORDKANJI, NameHelper.WORD_PRONUNCIATION,
                 List.of(translateEntity), List.of(partOfSpeech), false);
 
+        Mono<Word> wordMono = Mono.just(word);
+
+        given(wordRepositories.findById(word.getId())).willReturn(wordMono);
+
+        WebTestClient
+                .bindToController(wordController)
+                .build().get().uri("/api/word/1")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody().json(mapper.writeValueAsString(word));
 
 
-        given(wordRepositories.findById(word.getId())).willReturn(word);
-
-        mockMvc.perform(get("http://localhost:8080/api/word/1")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().json(mapper.writeValueAsString(word)));*/
-
-
+        WebTestClient
+                .bindToController(wordController)
+                .build().get().uri("/api/word/2")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody().isEmpty();
     }
 
-  /*  @DisplayName(" get all Word - success")
+/*    @DisplayName(" get all Word - success")
     @Test
-    void getAll() throws Exception {
-        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
-        TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
-        PartOfSpeech partOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
-        Word word1 = new Word("1", NameHelper.WORD_WORDKANJI, NameHelper.WORD_PRONUNCIATION,
-                List.of(translateEntity), List.of(partOfSpeech), false);
-
-        Word word2 = new Word("2", NameHelper.WORD_WORDKANJI, NameHelper.WORD_PRONUNCIATION,
-                List.of(translateEntity), List.of(partOfSpeech), false);
-
-        List<Word> words = List.of(word1, word2);
-
-        given(wordRepositories.findAll()).willReturn(words);
-
-        mockMvc.perform(get("http://localhost:8080/api/word/")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().json(mapper.writeValueAsString(words)));
-
+    void getAll() {
+        WebTestClient
+                .bindToController(wordController)
+                .build().get().uri("/api/word/")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody();
     }
 
     @DisplayName(" delete word by id - success")

@@ -22,12 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class WordRepositoriesTest {
 
     @Autowired
-    private LanguageRepository languageRepository;
-
-    @Autowired
-    private PartOfSpeechRepository partOfSpeechRepository;
-
-    @Autowired
     private WordRepositories wordRepositories;
 
     @Test
