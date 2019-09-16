@@ -74,11 +74,11 @@ class StudyKanji extends Component {
           }).join(" / ") : " - " }
           </Row>
           <Row className="justify-content-md-center">
-            Якорь: {kanji.anchor.wordKanji} ({kanji.anchor.pronunciation}) - {kanji.anchor.translateEntities.filter(w => {
+            Якорь: {kanji.anchor ? `${kanji.anchor.wordKanji} (${kanji.anchor.pronunciation}) - ${kanji.anchor.translateEntities.filter(w => {
             return w.language.shortName === this.option.getLanguage();
           }).map(w => {
             return w.translate;
-          })}
+          })}` : 'нет'}
           </Row>
         </Container>
       )
