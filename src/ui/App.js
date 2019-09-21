@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Route, Switch } from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Layout from "./component/Layout/Layout";
 import Words from "./component/Words/Words";
 import WordEdit from "./component/Words/WordEdit/WordEdit";
@@ -7,13 +7,16 @@ import StudySentence from "./component/Study/StudySentence/StudySentence";
 import StudyWord from "./component/Study/StudyWord/StudyWord";
 import StudyKanji from "./component/Study/StudyKanji/StudyKanji";
 import InProgress from "./component/InProgress/InProgress";
+import Navigation from "./component/Navigation/Navigation";
+import Login from "./component/User/Login/Login";
 
 export default class App extends Component {
 
   render() {
-    return (
-      <div className="container">
-        <Layout>
+    return (<BrowserRouter>
+        <div className="container">
+          <Navigation/>
+
           <Switch>
             <Route path="/words" component={Words}/>
             <Route path="/word/:id" component={WordEdit}/>
@@ -24,10 +27,12 @@ export default class App extends Component {
             <Route path="/kanjis" component={InProgress}/>
             <Route path="/grammars" component={InProgress}/>
             <Route path="/sentences" component={InProgress}/>
+            <Route path="/login" component={Login} />
             <Route path="/" exact component={InProgress}/>
           </Switch>
-        </Layout>
-      </div>
+
+        </div>
+      </BrowserRouter>
     )
   }
 }
