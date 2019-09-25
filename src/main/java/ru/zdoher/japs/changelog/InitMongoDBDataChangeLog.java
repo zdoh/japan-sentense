@@ -5,6 +5,7 @@ import com.github.cloudyrock.mongock.ChangeLog;
 import com.github.cloudyrock.mongock.ChangeSet;
 import com.mongodb.client.MongoDatabase;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import ru.zdoher.japs.domain.*;
 import ru.zdoher.japs.domain.sentence.OtherPossibleSentence;
 import ru.zdoher.japs.domain.sentence.Sentence;
@@ -13,6 +14,7 @@ import ru.zdoher.japs.domain.sentence.SentenceTranslate;
 import ru.zdoher.japs.domain.textbook.Textbook;
 import ru.zdoher.japs.domain.textbook.TextbookSeries;
 import ru.zdoher.japs.domain.textbook.TextbookType;
+import ru.zdoher.japs.domain.user.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -228,7 +230,7 @@ public class InitMongoDBDataChangeLog {
     }
 
     @ChangeSet(order = "004", id = "initialTextbookType", author = "zdoh", runAlways = true)
-    public void initTextbookType(MongoTemplate template) {
+    public void initTextbookType(MongoTemplate template)    {
         textbookTypeMap.put("文法", template.save(new TextbookType("文法", List.of(new TranslateEntity(langRu, "Грамматика")))));
         textbookTypeMap.put("読解", template.save(new TextbookType("読解", List.of(new TranslateEntity(langRu, "Чтение")))));
         textbookTypeMap.put("語彙", template.save(new TextbookType("語彙", List.of(new TranslateEntity(langRu, "Слова")))));
@@ -2415,6 +2417,12 @@ public class InitMongoDBDataChangeLog {
         template.save(textbookMap.get(MINNA_KANJI_1));
         template.save(textbookMap.get(BASIC_KANJI_BOOK_1));
 
+    }
+
+    @ChangeSet(order = "015", id = "initialUser", author = "zdoh", runAlways = true)
+    public void initUser(MongoTemplate template) {
+        template.save(new User("admin", BCrypt.hashpw("admin", BCrypt.gensalt()), List.of("ROLE_USER", "ROLE_ADMIN")));
+        template.save(new User("user", BCrypt.hashpw("user", BCrypt.gensalt()), List.of("ROLE_USER")));
     }
 
 }
