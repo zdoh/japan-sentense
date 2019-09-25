@@ -15,6 +15,9 @@ import java.util.List;
 @Document
 @Builder
 public class Grammar {
+    private enum GrammarType {
+        ADDING, CHANGE
+    }
 
     @Id
     private String id;
@@ -24,6 +27,8 @@ public class Grammar {
     private List<PartOfSpeech> grammarCreate;
 
     private PartOfSpeech resultPartOfSpeech;
+
+    private GrammarType grammarType;
 
     private List<TranslateEntity> grammarComment;
 
