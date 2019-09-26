@@ -10,18 +10,15 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 import ru.zdoher.japs.domain.user.MyUserDetails;
 
-//@RestController
+@RestController
 public class SecurityController {
 
-/*    @PostMapping("/login")
+    @PostMapping("/login")
     public Mono<UserDetails> login(ServerWebExchange exchange) {
         return ReactiveSecurityContextHolder.getContext()
                 .map(SecurityContext::getAuthentication)
                 .map(Authentication::getPrincipal)
-                .cast(MyUserDetails.class)
-                .doOnNext(userDetails -> {
-                    add
-                })
-    }*/
+                .cast(UserDetails.class);
+    }
 
 }

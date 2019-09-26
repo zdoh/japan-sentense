@@ -3,6 +3,7 @@ package ru.zdoher.japs.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -15,7 +16,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.authentication.HttpStatusServerEntryPoint;
 import org.springframework.security.web.server.authentication.WebFilterChainServerAuthenticationSuccessHandler;
+import org.springframework.security.web.server.authorization.HttpStatusServerAccessDeniedHandler;
 import reactor.core.publisher.Mono;
 
 @EnableWebFluxSecurity
@@ -42,15 +45,19 @@ public class SecurityConfiguration {
 
         return http.csrf().disable()
                 .authorizeExchange()
-                .pathMatchers("/api/word/random").permitAll()
-                .pathMatchers("/api/word/**").hasRole("ADMIN")
-                .pathMatchers("/api/sentence/random").permitAll()
-                .pathMatchers("/api/sentence/**").hasRole("ADMIN")
-                .pathMatchers("/api/kanji/random").permitAll()
-                .pathMatchers("/api/kanji/**").hasRole("ADMIN")
-                .pathMatchers("/**").permitAll()
-                //.and().httpBasic()
-                .and().formLogin()
+                    .pathMatchers("/api/word/random").permitAll()
+                    .pathMatchers("/api/word/**").hasRole("ADMIN")
+                    .pathMatchers("/api/sentence/random").permitAll()
+                    .pathMatchers("/api/sentence/**").hasRole("ADMIN")
+                    .pathMatchers("/api/kanji/random").permitAll()
+                    .pathMatchers("/api/kanji/**").hasRole("ADMIN")
+                    .pathMatchers("/**").permitAll()
+                .and().formLogin().loginPage("/login")
+                    .authenticationFailureHandler((exchange, exception) -> Mono.error(exception))
+                    .authenticationSuccessHandler(new WebFilterChainServerAuthenticationSuccessHandler())
+                .and().exceptionHandling()
+                    .authenticationEntryPoint(new HttpStatusServerEntryPoint(HttpStatus.UNAUTHORIZED))
+                    .accessDeniedHandler(new HttpStatusServerAccessDeniedHandler(HttpStatus.FORBIDDEN))
                 .and().build();
 
 
@@ -73,31 +80,6 @@ public class SecurityConfiguration {
                 .authenticationSuccessHandler(new WebFilterChainServerAuthenticationSuccessHandler())
                 .and().build();*/
     }
-
-/*    @Bean
-    public MapReactiveUserDetailsService userDetailsService() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
-                //.password(encoder().encode("user"))
-                .password("user")
-                .roles("USER")
-                .build();
-
-*//*        UserDetails admin = User
-                .withUsername("admin")
-                .password("admin")
-                .roles("ADMIN")
-                .build();*//*
-
-         UserDetails admin = User.withDefaultPasswordEncoder()
-                .username("admin")
-                //.password(encoder().encode("admin"))
-                .password("admin")
-                .roles("ADMIN")
-                .build();
-
-        return new MapReactiveUserDetailsService(user, admin);
-    }*/
 
     @Bean
     public PasswordEncoder encode() {
