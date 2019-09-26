@@ -14,11 +14,13 @@ import ru.zdoher.japs.domain.user.MyUserDetails;
 public class SecurityController {
 
     @PostMapping("/login")
-    public Mono<UserDetails> login(ServerWebExchange exchange) {
+    public Mono<String> login(ServerWebExchange exchange) {
         return ReactiveSecurityContextHolder.getContext()
                 .map(SecurityContext::getAuthentication)
                 .map(Authentication::getPrincipal)
-                .cast(UserDetails.class);
+                .cast(UserDetails.class)
+                .map(UserDetails::getUsername);
+
     }
 
 }
