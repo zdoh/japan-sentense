@@ -6,9 +6,12 @@ import com.github.cloudyrock.mongock.ChangeSet;
 import com.mongodb.client.MongoDatabase;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import ru.zdoher.japs.domain.*;
+import ru.zdoher.japs.domain.grammar.AddingGrammar;
+import ru.zdoher.japs.domain.grammar.Grammar;
+import ru.zdoher.japs.domain.grammar.GrammarType;
 import ru.zdoher.japs.domain.sentence.OtherPossibleSentence;
 import ru.zdoher.japs.domain.sentence.Sentence;
-import ru.zdoher.japs.domain.sentence.SentencePoliteness;
+import ru.zdoher.japs.domain.Politeness;
 import ru.zdoher.japs.domain.sentence.SentenceTranslate;
 import ru.zdoher.japs.domain.textbook.Textbook;
 import ru.zdoher.japs.domain.textbook.TextbookSeries;
@@ -31,7 +34,7 @@ public class InitMongoDBDataChangeLog {
     private Language langRu;
     private Language langEn;
 
-    private Map<String, TextbookType>  textbookTypeMap = new HashMap<>();
+    private Map<String, TextbookType> textbookTypeMap = new HashMap<>();
 
     private Map<String, PartOfSpeech> partOfSpeechMap = new HashMap<>();
 
@@ -45,7 +48,7 @@ public class InitMongoDBDataChangeLog {
 
     private Map<String, Textbook> textbookMap = new HashMap<>();
 
-    private Map<String, SentencePoliteness> sentencePolitenessMap = new HashMap<>();
+    private Map<String, Politeness> sentencePolitenessMap = new HashMap<>();
 
     @ChangeSet(order = "001", id = "dropDB", author = "zdoh", runAlways = true)
     public void dropDB(MongoDatabase database) {
@@ -63,7 +66,7 @@ public class InitMongoDBDataChangeLog {
         //wordTypeMap.put("", template.save(new WordType("", List.of(), "")));
 
         partOfSpeechMap.put("num", template.save(new PartOfSpeech("num",
-                        List.of(new TranslateEntity(langRu, "числительное"), new TranslateEntity(langEn, "numeral")), "数詞")));
+                List.of(new TranslateEntity(langRu, "числительное"), new TranslateEntity(langEn, "numeral")), "数詞")));
 
         partOfSpeechMap.put("n", template.save(new PartOfSpeech("n",
                 List.of(new TranslateEntity(langRu, "существительное"), new TranslateEntity(langEn, "noun (common)")), "名詞")));
@@ -1348,85 +1351,164 @@ public class InitMongoDBDataChangeLog {
 */
 
 
-
     }
 
-    @ChangeSet(order = "008", id = "initialGrammar", author = "zdoh", runAlways = true)
+    @ChangeSet(order = "008", id = "initialPoliteness", author = "zdoh", runAlways = true)
+    public void initPoliteness(MongoTemplate template) {
+        sentencePolitenessMap.put("polite", template.save(new Politeness("丁寧語",
+                List.of(new TranslateEntity(langRu, "нейтрально-вежливая речь"), new TranslateEntity(langEn, "polite language")))));
+
+        sentencePolitenessMap.put("respectful", template.save(new Politeness("尊敬語",
+                List.of(new TranslateEntity(langRu, "уважительная речь"), new TranslateEntity(langEn, "respectful language")))));
+
+        sentencePolitenessMap.put("humble", template.save(new Politeness("謙譲語",
+                List.of(new TranslateEntity(langRu, "скромная речь"), new TranslateEntity(langEn, "humble language")))));
+
+        sentencePolitenessMap.put("simple", template.save(new Politeness("丁寧語",
+                List.of(new TranslateEntity(langRu, "простая / не формальная речь"), new TranslateEntity(langEn, "simple / informal language")))));
+    }
+
+    @ChangeSet(order = "009", id = "initialGrammar", author = "zdoh", runAlways = true)
     public void initGrammar(MongoTemplate template) {
-        grammarMap.put("nは", template.save(new Grammar("nは",
-                List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("は")),
-                List.of(new TranslateEntity(langRu, "Частица 「は」 указывает, что перед ней стоит существительное, является темой высказывания.")))));
+        grammarMap.put("nは", template.save(Grammar.builder()
+                .name("nは")
+                .grammarType(GrammarType.ADDING)
+                .addingGrammar(new AddingGrammar(List.of(partOfSpeechMap.get("は"), partOfSpeechMap.get("n")),
+                        List.of(new TranslateEntity(langRu, "Частица 「は」 указывает, что перед ней стоит существительное, " + "является темой высказывания."))))
+                .build()));
 
-        grammarMap.put("nです", template.save(new Grammar("nです",
-                List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("です")), partOfSpeechMap.get("文"),
-                List.of(new TranslateEntity(langRu, "Существительное, оформленное связной 「です」, является именным сказуемым. " +
-                        "です указывает на суждения или утверждение. " +
-                        "です выражает нейтрально-вежливый стиль речи говорящего по отношению к собеседнику." +
-                        "です изменяется в отрицательных предложениях и в прошедшем времени.")))));
+        grammarMap.put("nです", template.save(Grammar.builder()
+                .name("nです")
+                .grammarType(GrammarType.ADDING)
+                .addingGrammar(new AddingGrammar(
+                        List.of(partOfSpeechMap.get("です"), partOfSpeechMap.get("n")), partOfSpeechMap.get("文"),
+                        List.of(new TranslateEntity(langRu, "Существительное, оформленное связной 「です」, является именным сказуемым. " +
+                                "です указывает на суждения или утверждение. " +
+                                "です выражает нейтрально-вежливый стиль речи говорящего по отношению к собеседнику." +
+                                "です изменяется в отрицательных предложениях и в прошедшем времени."))))
+                .politeness(sentencePolitenessMap.get("polite"))
+                .build()));
 
-        grammarMap.put("nじゃありません", template.save(new Grammar("nじゃありません",
-                List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("じゃありません")), partOfSpeechMap.get("文"),
-                List.of(new TranslateEntity(langRu, "じゃありません является разговорной отрицательной версией 「です」.")))));
+        grammarMap.put("nじゃありません", template.save(Grammar.builder()
+                .name("nじゃありません")
+                .grammarType(GrammarType.ADDING)
+                .addingGrammar(new AddingGrammar(
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("じゃありません")), partOfSpeechMap.get("文"),
+                        List.of(new TranslateEntity(langRu, "じゃありません является разговорной отрицательной версией 「です」."))))
+                .conversation(true)
+                .politeness(sentencePolitenessMap.get("polite"))
+                .build()));
 
-        grammarMap.put("nではありません", template.save(new Grammar("nではありません",
-                List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("ではありません")), partOfSpeechMap.get("文"),
-                List.of(new TranslateEntity(langRu, "ではありません　является отрицательной версией 「です」. " +
-                        "Используется в нейтрально-вежливом или информационном стиле, а также в письменной речи.")))));
+        grammarMap.put("nではありません", template.save(Grammar.builder()
+                .name("nではありません")
+                .grammarType(GrammarType.ADDING)
+                .addingGrammar(new AddingGrammar(
+                        List.of(partOfSpeechMap.get("ではありません"), partOfSpeechMap.get("n")), partOfSpeechMap.get("文"),
+                        List.of(new TranslateEntity(langRu, "ではありません　является отрицательной версией 「です」. " +
+                                "Используется в нейтрально-вежливом или информационном стиле, а также в письменной речи."))))
+                .politeness(sentencePolitenessMap.get("polite"))
+                .build()));
 
-        grammarMap.put("nですか", template.save(new Grammar("nですか",
-                List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("です"), partOfSpeechMap.get("か")), partOfSpeechMap.get("文"),
-                List.of(new TranslateEntity(langRu, "Частица か указывает на сомнение, вопрос и тд говорящего. " +
-                        "Вопросительное предложение образуется путем добавление частицы 「か」 в конец предложения.")))));
+        grammarMap.put("文か", template.save(Grammar.builder()
+                .name("文か")
+                .grammarType(GrammarType.ADDING)
+                .addingGrammar(new AddingGrammar(
+                        List.of(partOfSpeechMap.get("か"), partOfSpeechMap.get("です"), partOfSpeechMap.get("n")), partOfSpeechMap.get("文"),
+                        List.of(new TranslateEntity(langRu, "Частица か указывает на сомнение, вопрос и тд говорящего. " +
+                                "Вопросительное предложение образуется путем добавление частицы 「か」 в конец предложения."))))
+                .politeness(sentencePolitenessMap.get("polite"))
+                .build()));
 
-        grammarMap.put("nも", template.save(new Grammar("nも",
-                List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("も")),
-                List.of(new TranslateEntity(langRu, "Вместо тематической частицы 「は」 употребляется частица 「も」, " +
-                        "если утверждается то же самое, что и по поводу предыдущей темы")))));
+        grammarMap.put("nも", template.save(Grammar.builder()
+                .name("nも")
+                .grammarType(GrammarType.ADDING)
+                .addingGrammar(new AddingGrammar(
+                        List.of(partOfSpeechMap.get("も"), partOfSpeechMap.get("n")),
+                        List.of(new TranslateEntity(langRu, "Вместо тематической частицы 「は」 употребляется частица 「も」, " +
+                                "если утверждается то же самое, что и по поводу предыдущей темы"))))
+                .build()));
 
-        grammarMap.put("nのn", template.save(new Grammar("nのn",
-                List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("の"), partOfSpeechMap.get("n")),
-                List.of(new TranslateEntity(langRu, "Частица 「の」 служит для связи двух существительных, если второе существительное" +
-                        "является определениек к первому существительному. Например 'моя книга'")))));
+        grammarMap.put("nのn", template.save(Grammar.builder()
+                .name("nのn")
+                .grammarType(GrammarType.ADDING)
+                .addingGrammar(new AddingGrammar(
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("の"), partOfSpeechMap.get("n")), partOfSpeechMap.get("n"),
+                        List.of(new TranslateEntity(langRu, "Частица 「の」 служит для связи двух существительных, если второе существительное" +
+                                "является определениек к первому существительному. Например 'моя книга'"))))
+                .build()));
 
-        grammarMap.put("nの", template.save(new Grammar("nの",
-                List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("の"), partOfSpeechMap.get("n")),
-                List.of(new TranslateEntity(langRu, "В конструкции 「nのn」, в случае если из контекста понятно о каком втором существительном " +
-                        "идет речь, то второе существительное может опускаться. Например 「この本は私のです」")))));
+        grammarMap.put("nの", template.save(Grammar.builder()
+                .name("nの")
+                .grammarType(GrammarType.ADDING)
+                .addingGrammar(new AddingGrammar(
+                        List.of(partOfSpeechMap.get("の"), partOfSpeechMap.get("n")), partOfSpeechMap.get("n"),
+                        List.of(new TranslateEntity(langRu, "В конструкции 「nのn」, в случае если из контекста понятно о каком втором существительном " +
+                                "идет речь, то второе существительное может опускаться. Например 「この本は私のです」"))))
+                .build()));
 
-        grammarMap.put("これは", template.save(new Grammar("これは",
-                List.of(partOfSpeechMap.get("これ"), partOfSpeechMap.get("は")),
-                List.of(new TranslateEntity(langRu, "Предметно-указательное местоимение, употребляющиеся вместо названий предметов и " +
-                        "грамматически функционируют иак же, как и имена существительные. これ указывает на предмет, более близкий к говорящему.")))));
+        grammarMap.put("これ", template.save(Grammar.builder()
+                .name("これ")
+                .grammarType(GrammarType.ADDING)
+                .addingGrammar(new AddingGrammar(
+                        List.of(partOfSpeechMap.get("これ")),
+                        List.of(new TranslateEntity(langRu, "Предметно-указательное местоимение, употребляющиеся вместо названий предметов и " +
+                                "грамматически функционируют так же, как и имена существительные. これ указывает на предмет, более близкий к говорящему."))))
+                .build()));
 
-        grammarMap.put("それは", template.save(new Grammar("それは",
-                List.of(partOfSpeechMap.get("それ"), partOfSpeechMap.get("は")),
-                List.of(new TranslateEntity(langRu, "Предметно-указательное местоимение, употребляющиеся вместо названий предметов и " +
-                        "грамматически функционируют иак же, как и имена существительные. それ указывает на предмет, более близкий к собеседнику.")))));
+        grammarMap.put("それ", template.save(Grammar.builder()
+                .name("それ")
+                .grammarType(GrammarType.ADDING)
+                .addingGrammar(new AddingGrammar(
+                        List.of(partOfSpeechMap.get("それ")),
+                        List.of(new TranslateEntity(langRu, "Предметно-указательное местоимение, употребляющиеся вместо названий предметов и " +
+                                "грамматически функционируют иак же, как и имена существительные. それ указывает на предмет, более близкий к собеседнику."))))
+                .build()));
 
-        grammarMap.put("あれは", template.save(new Grammar("あれは",
-                List.of(partOfSpeechMap.get("それ"), partOfSpeechMap.get("は")),
-                List.of(new TranslateEntity(langRu, "Предметно-указательное местоимение, употребляющиеся вместо названий предметов и " +
-                        "грамматически функционируют иак же, как и имена существительные. あれ указывает на предмет, равноудаленный от собеседников.")))));
+        grammarMap.put("あれ", template.save(Grammar.builder()
+                .name("あれ")
+                .grammarType(GrammarType.ADDING)
+                .addingGrammar(new AddingGrammar(
+                        List.of(partOfSpeechMap.get("それ")),
+                        List.of(new TranslateEntity(langRu, "Предметно-указательное местоимение, употребляющиеся вместо названий предметов и " +
+                                "грамматически функционируют иак же, как и имена существительные. あれ указывает на предмет, равноудаленный от собеседников."))))
+                .build()));
 
-        grammarMap.put("このn", template.save(new Grammar("このn",
-                List.of(partOfSpeechMap.get("この"), partOfSpeechMap.get("n")),
-                List.of(new TranslateEntity(langRu, "Относительно-указательное местоимение 「この」 определяет существительное и используется " +
-                        "с ним. 「このn」 указывает на предмет, более близкий к говорящему.")))));
+        grammarMap.put("このn", template.save(Grammar.builder()
+                .name("このn")
+                .grammarType(GrammarType.ADDING)
+                .addingGrammar(new AddingGrammar(
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("この")), partOfSpeechMap.get("n"),
+                        List.of(new TranslateEntity(langRu, "Относительно-указательное местоимение 「この」 определяет существительное и используется " +
+                                "с ним. 「このn」 указывает на предмет, более близкий к говорящему."))))
+                .build()));
 
-        grammarMap.put("そのn", template.save(new Grammar("そのn",
-                List.of(partOfSpeechMap.get("その"), partOfSpeechMap.get("n")),
-                List.of(new TranslateEntity(langRu, "Относительно-указательное местоимение 「その」 определяет существительное и используется " +
-                        "с ним. 「そのn」 указывает на предмет, более близкий к собеседнику.")))));
+        grammarMap.put("そのn", template.save(Grammar.builder()
+                .name("そのn")
+                .grammarType(GrammarType.ADDING)
+                .addingGrammar(new AddingGrammar(
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("その")), partOfSpeechMap.get("n"),
+                        List.of(new TranslateEntity(langRu, "Относительно-указательное местоимение 「その」 определяет существительное и используется " +
+                                "с ним. 「そのn」 указывает на предмет, более близкий к собеседнику."))))
+                .build()));
 
-        grammarMap.put("あのn", template.save(new Grammar("あのn",
-                List.of(partOfSpeechMap.get("あの"), partOfSpeechMap.get("n")),
-                List.of(new TranslateEntity(langRu, "Относительно-указательное местоимение 「あの」 определяет существительное и используется " +
-                        "с ним. 「あのn」 указывает на предмет, равноудаленный от говорящих.")))));
+        grammarMap.put("あのn", template.save(Grammar.builder()
+                .name("あのn")
+                .grammarType(GrammarType.ADDING)
+                .addingGrammar(new AddingGrammar(
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("あの")), partOfSpeechMap.get("n"),
+                        List.of(new TranslateEntity(langRu, "Относительно-указательное местоимение 「あの」 определяет существительное и используется " +
+                                "с ним. 「あのn」 указывает на предмет, равноудаленный от говорящих."))))
+                .build()));
 
-        grammarMap.put("文か、文か", template.save(new Grammar("文か、文か",
-                List.of(partOfSpeechMap.get("文"), partOfSpeechMap.get("か"), partOfSpeechMap.get("、"), partOfSpeechMap.get("文"), partOfSpeechMap.get("か")),
-                List.of(new TranslateEntity(langRu, "Альтернативный вопрос, при ответе на который требуется выбрать правильное утверждение " +
-                        "из двух (или более) предложенных. Ответом является повторение правильного утверждения без добавления 「はい」 или 「いいえ」")))));
+        grammarMap.put("文か、文か", template.save(Grammar.builder()
+                .name("文か、文か")
+                .grammarType(GrammarType.ADDING)
+                .addingGrammar(new AddingGrammar(
+                        List.of(partOfSpeechMap.get("か"), partOfSpeechMap.get("文"), partOfSpeechMap.get("、"), partOfSpeechMap.get("か"), partOfSpeechMap.get("文")), partOfSpeechMap.get("文"),
+                        List.of(new TranslateEntity(langRu, "Альтернативный вопрос, при ответе на который требуется выбрать правильное утверждение " +
+                                "из двух (или более) предложенных. Ответом является повторение правильного утверждения без добавления 「はい」 или 「いいえ」"))))
+
+                .build()));
 
 
 /*
@@ -1437,7 +1519,7 @@ public class InitMongoDBDataChangeLog {
 
     }
 
-    @ChangeSet(order = "009", id = "initialTextbookSeries", author = "zdoh", runAlways = true)
+    @ChangeSet(order = "010", id = "initialTextbookSeries", author = "zdoh", runAlways = true)
     public void initTextbookSeries(MongoTemplate template) {
         textbookSeriesMap.put(MINNA_S, template.save(
                 new TextbookSeries("みんなの日本語", MINNA_S)));
@@ -1447,7 +1529,7 @@ public class InitMongoDBDataChangeLog {
 
     }
 
-    @ChangeSet(order = "010", id = "initialTextbook", author = "zdoh", runAlways = true)
+    @ChangeSet(order = "011", id = "initialTextbook", author = "zdoh", runAlways = true)
     public void initTextbook(MongoTemplate template) {
         textbookMap.put(MINNA_GR_1, template.save(
                 new Textbook("みんなの日本語初級I文法", MINNA_GR_1, textbookSeriesMap.get(MINNA_S), true,
@@ -1463,7 +1545,7 @@ public class InitMongoDBDataChangeLog {
 
     }
 
-    @ChangeSet(order = "011", id = "initialLesson", author = "zdoh", runAlways = true)
+    @ChangeSet(order = "012", id = "initialLesson", author = "zdoh", runAlways = true)
     public void initLesson(MongoTemplate template) {
         Textbook textbook = textbookMap.get(MINNA_GR_1);
         textbook.getLessonList().add(new Lesson("Lesson 1"));
@@ -1482,7 +1564,7 @@ public class InitMongoDBDataChangeLog {
         template.save(textbook2);
     }
 
-    @ChangeSet(order = "012", id = "initialTextbookLessonWord", author = "zdoh", runAlways = true)
+    @ChangeSet(order = "013", id = "initialTextbookLessonWord", author = "zdoh", runAlways = true)
     public void initTextbookLessonWord(MongoTemplate template) {
         ArrayList<Word> minnaGrWordsL1 = new ArrayList<>();
         ArrayList<Word> minnaGrWordsL2 = new ArrayList<>();
@@ -1731,8 +1813,6 @@ public class InitMongoDBDataChangeLog {
         basicKanjiBookWordsL2.add(wordsMap.get(""));
 
 
-
-
         //words.add(wordsMap.get(""));
 
 
@@ -1751,14 +1831,13 @@ public class InitMongoDBDataChangeLog {
                 template.save(textbookMap.get("Minna no nihongo begin grammar I")));*/
     }
 
-    @ChangeSet(order = "012", id = "initialTextbookLessonKanji", author = "zdoh", runAlways = true)
+    @ChangeSet(order = "014", id = "initialTextbookLessonKanji", author = "zdoh", runAlways = true)
     public void initialTextbookLessonKanji(MongoTemplate template) {
         List<Kanji> minnaKanjiL0 = new ArrayList<>();
         List<Kanji> minnaKanjiL1 = new ArrayList<>();
 
         List<Kanji> basicKanjiL1 = new ArrayList<>();
         List<Kanji> basicKanjiL2 = new ArrayList<>();
-
 
 
         minnaKanjiL0.add(kanjiMap.get("一"));
@@ -1823,24 +1902,7 @@ public class InitMongoDBDataChangeLog {
         template.save(textbookMap.get(BASIC_KANJI_BOOK_1));
     }
 
-    @ChangeSet(order = "013", id = "initialSentencePoliteness", author = "zdoh", runAlways = true)
-    public void initSentencePoliteness(MongoTemplate template) {
-        sentencePolitenessMap.put("polite", template.save(new SentencePoliteness("丁寧語",
-                List.of(new TranslateEntity(langRu, "нейтрально-вежливая речь"), new TranslateEntity(langEn, "polite language")))));
-
-        sentencePolitenessMap.put("respectful", template.save(new SentencePoliteness("尊敬語",
-                List.of(new TranslateEntity(langRu, "уважительная речь"), new TranslateEntity(langEn, "respectful language")))));
-
-        sentencePolitenessMap.put("humble", template.save(new SentencePoliteness("謙譲語",
-                List.of(new TranslateEntity(langRu, "скромная речь"), new TranslateEntity(langEn, "humble language")))));
-
-        sentencePolitenessMap.put("simple", template.save(new SentencePoliteness("丁寧語",
-                List.of(new TranslateEntity(langRu, "не формальная речь"), new TranslateEntity(langEn, "informal language")))));
-
-
-    }
-
-    @ChangeSet(order = "014", id = "initialSentence", author = "zdoh", runAlways = true)
+    @ChangeSet(order = "015", id = "initialSentence", author = "zdoh", runAlways = true)
     public void initSentence(MongoTemplate template) {
 
         String minnaGrSourceL1 = textbookMap.get(MINNA_GR_1).getJapaneseName() + " - "

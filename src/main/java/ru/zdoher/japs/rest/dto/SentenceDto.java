@@ -3,10 +3,10 @@ package ru.zdoher.japs.rest.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.zdoher.japs.domain.Grammar;
+import ru.zdoher.japs.domain.grammar.Grammar;
 import ru.zdoher.japs.domain.Word;
 import ru.zdoher.japs.domain.sentence.Sentence;
-import ru.zdoher.japs.domain.sentence.SentencePoliteness;
+import ru.zdoher.japs.domain.Politeness;
 import ru.zdoher.japs.domain.sentence.SentenceTranslate;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class SentenceDto {
 
     private String sentenceSource;
 
-    private SentencePoliteness politeness;
+    private Politeness politeness;
 
     private Boolean conversation;
 

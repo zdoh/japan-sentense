@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import ru.zdoher.japs.domain.grammar.Grammar;
 import ru.zdoher.japs.domain.sentence.Sentence;
 
 import java.util.List;

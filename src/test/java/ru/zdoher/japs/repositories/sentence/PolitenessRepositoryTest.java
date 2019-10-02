@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 import ru.zdoher.japs.domain.Language;
 import ru.zdoher.japs.domain.TranslateEntity;
-import ru.zdoher.japs.domain.sentence.SentencePoliteness;
+import ru.zdoher.japs.domain.Politeness;
 import ru.zdoher.japs.NameHelper;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Class - SentencePolitenessRepository")
 @DataMongoTest
-class SentencePolitenessRepositoryTest {
+class PolitenessRepositoryTest {
 
     @Autowired
     private SentencePolitenessRepository sentencePolitenessRepository;
@@ -29,12 +29,12 @@ class SentencePolitenessRepositoryTest {
     void sentencePolitenessAddAndGet() {
         Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
         TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
-        SentencePoliteness addedSentencePoliteness = new SentencePoliteness(NameHelper.SENTENCE_POLITENESS_NAME, List.of(translateEntity));
+        Politeness addedPoliteness = new Politeness(NameHelper.SENTENCE_POLITENESS_NAME, List.of(translateEntity));
 
-        sentencePolitenessRepository.save(addedSentencePoliteness).block();
+        sentencePolitenessRepository.save(addedPoliteness).block();
 
-        Mono<SentencePoliteness> sentencePolitenessResult =
-                sentencePolitenessRepository.findById(addedSentencePoliteness.getId());
+        Mono<Politeness> sentencePolitenessResult =
+                sentencePolitenessRepository.findById(addedPoliteness.getId());
 
         StepVerifier
                 .create(sentencePolitenessResult)

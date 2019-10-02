@@ -7,7 +7,7 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 import ru.zdoher.japs.NameHelper;
-import ru.zdoher.japs.domain.Grammar;
+import ru.zdoher.japs.domain.grammar.Grammar;
 import ru.zdoher.japs.domain.Language;
 import ru.zdoher.japs.domain.PartOfSpeech;
 import ru.zdoher.japs.domain.TranslateEntity;

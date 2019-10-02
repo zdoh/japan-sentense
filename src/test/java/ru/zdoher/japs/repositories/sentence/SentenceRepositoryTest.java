@@ -9,7 +9,7 @@ import reactor.test.StepVerifier;
 import ru.zdoher.japs.domain.Language;
 import ru.zdoher.japs.domain.TranslateEntity;
 import ru.zdoher.japs.domain.sentence.Sentence;
-import ru.zdoher.japs.domain.sentence.SentencePoliteness;
+import ru.zdoher.japs.domain.Politeness;
 import ru.zdoher.japs.domain.sentence.SentenceTranslate;
 import ru.zdoher.japs.NameHelper;
 
@@ -31,9 +31,9 @@ class SentenceRepositoryTest {
         Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
         SentenceTranslate sentenceTranslate = new SentenceTranslate(language, NameHelper.SENTENCE_TRANSLATE);
         TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
-        SentencePoliteness sentencePoliteness = new SentencePoliteness(NameHelper.SENTENCE_POLITENESS_NAME, List.of(translateEntity));
+        Politeness politeness = new Politeness(NameHelper.SENTENCE_POLITENESS_NAME, List.of(translateEntity));
         Sentence addedSentence = new Sentence(NameHelper.SENTENCE_SENTENCE, List.of(sentenceTranslate),
-                        NameHelper.SENTENCE_SOURCE, sentencePoliteness, true);
+                        NameHelper.SENTENCE_SOURCE, politeness, true);
 
         sentenceRepository.save(addedSentence).block();
 

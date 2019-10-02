@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import ru.zdoher.japs.domain.Grammar;
+import ru.zdoher.japs.domain.Politeness;
+import ru.zdoher.japs.domain.grammar.Grammar;
 import ru.zdoher.japs.domain.Word;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class Sentence {
 
     private String sentenceSource;
 
-    private SentencePoliteness politeness;
+    private Politeness politeness;
 
     private Boolean conversation;
 
@@ -34,7 +34,7 @@ public class Sentence {
 
     private List<Word> words;
 
-    public Sentence(String sentence, List<SentenceTranslate> translateList, String sentenceSource, SentencePoliteness politeness, Boolean conversation) {
+    public Sentence(String sentence, List<SentenceTranslate> translateList, String sentenceSource, Politeness politeness, Boolean conversation) {
         this.sentence = sentence;
         this.translateList = translateList;
         this.sentenceSource = sentenceSource;
@@ -42,7 +42,7 @@ public class Sentence {
         this.conversation = conversation;
     }
 
-    public Sentence(String sentence, List<SentenceTranslate> translateList, String sentenceSource, SentencePoliteness politeness, Boolean conversation, List<Grammar> grammarList) {
+    public Sentence(String sentence, List<SentenceTranslate> translateList, String sentenceSource, Politeness politeness, Boolean conversation, List<Grammar> grammarList) {
         this.sentence = sentence;
         this.translateList = translateList;
         this.sentenceSource = sentenceSource;
@@ -51,7 +51,7 @@ public class Sentence {
         this.grammarList = grammarList;
     }
 
-    public Sentence(String sentence, List<SentenceTranslate> translateList, String sentenceSource, SentencePoliteness politeness, Boolean conversation, List<Grammar> grammarList, List<Word> words) {
+    public Sentence(String sentence, List<SentenceTranslate> translateList, String sentenceSource, Politeness politeness, Boolean conversation, List<Grammar> grammarList, List<Word> words) {
         this.sentence = sentence;
         this.translateList = translateList;
         this.sentenceSource = sentenceSource;
