@@ -7,6 +7,7 @@ import com.mongodb.client.MongoDatabase;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import ru.zdoher.japs.domain.*;
 import ru.zdoher.japs.domain.grammar.AddingGrammar;
+import ru.zdoher.japs.domain.grammar.ChangeGrammar;
 import ru.zdoher.japs.domain.grammar.Grammar;
 import ru.zdoher.japs.domain.grammar.GrammarType;
 import ru.zdoher.japs.domain.sentence.OtherPossibleSentence;
@@ -222,6 +223,9 @@ public class InitMongoDBDataChangeLog {
 
         partOfSpeechMap.put("お", template.save(new PartOfSpeech("お",
                 List.of(new TranslateEntity(langRu, "показатель вежливости, префикс к существительному")), "")));
+
+        partOfSpeechMap.put("vIbas", template.save(new PartOfSpeech("vIbas",
+                List.of(new TranslateEntity(langRu, "первая основа глагола")), "")));
 
 /*
         wordTypeMap.put("", template.save(new WordType("",
@@ -1507,7 +1511,86 @@ public class InitMongoDBDataChangeLog {
                         List.of(partOfSpeechMap.get("か"), partOfSpeechMap.get("文"), partOfSpeechMap.get("、"), partOfSpeechMap.get("か"), partOfSpeechMap.get("文")), partOfSpeechMap.get("文"),
                         List.of(new TranslateEntity(langRu, "Альтернативный вопрос, при ответе на который требуется выбрать правильное утверждение " +
                                 "из двух (или более) предложенных. Ответом является повторение правильного утверждения без добавления 「はい」 или 「いいえ」"))))
+                .build()));
 
+        grammarMap.put("vBas1", template.save(Grammar.builder()
+                .name("vBas1")
+                .grammarType(GrammarType.CHANGE)
+                .changeGrammarMap(List.of(
+                        ChangeGrammar.builder().name("v1").deletingPart("る").addingPart("").build(),
+
+                        ChangeGrammar.builder().name("v5u").deletingPart("う").addingPart("わ").build(),
+                        ChangeGrammar.builder().name("v5k").deletingPart("く").addingPart("か").build(),
+                        ChangeGrammar.builder().name("v5g").deletingPart("ぐ").addingPart("が").build(),
+                        ChangeGrammar.builder().name("v5s").deletingPart("す").addingPart("さ").build(),
+                        ChangeGrammar.builder().name("v5t").deletingPart("つ").addingPart("た").build(),
+                        ChangeGrammar.builder().name("v5n").deletingPart("ぬ").addingPart("な").build(),
+                        ChangeGrammar.builder().name("v5b").deletingPart("ぶ").addingPart("ば").build(),
+                        ChangeGrammar.builder().name("v5m").deletingPart("む").addingPart("ま").build(),
+                        ChangeGrammar.builder().name("v5r").deletingPart("る").addingPart("ら").build(),
+
+                        ChangeGrammar.builder().name("vk").deletingPart("くる").addingPart("こ").build(),
+                        ChangeGrammar.builder().name("vs").deletingPart("する").addingPart("し").build()))
+                .build()));
+
+        grammarMap.put("vBas2", template.save(Grammar.builder()
+                .name("vBas2")
+                .grammarType(GrammarType.CHANGE)
+                .changeGrammarMap(List.of(
+                        ChangeGrammar.builder().name("v1").deletingPart("る").addingPart("").build(),
+
+                        ChangeGrammar.builder().name("v5u").deletingPart("う").addingPart("い").build(),
+                        ChangeGrammar.builder().name("v5k").deletingPart("く").addingPart("き").build(),
+                        ChangeGrammar.builder().name("v5g").deletingPart("ぐ").addingPart("ぎ").build(),
+                        ChangeGrammar.builder().name("v5s").deletingPart("す").addingPart("し").build(),
+                        ChangeGrammar.builder().name("v5t").deletingPart("つ").addingPart("ち").build(),
+                        ChangeGrammar.builder().name("v5n").deletingPart("ぬ").addingPart("に").build(),
+                        ChangeGrammar.builder().name("v5b").deletingPart("ぶ").addingPart("び").build(),
+                        ChangeGrammar.builder().name("v5m").deletingPart("む").addingPart("み").build(),
+                        ChangeGrammar.builder().name("v5r").deletingPart("る").addingPart("り").build(),
+
+                        ChangeGrammar.builder().name("vk").deletingPart("くる").addingPart("き").build(),
+                        ChangeGrammar.builder().name("vs").deletingPart("する").addingPart("し").build()))
+                .build()));
+
+        grammarMap.put("vBas4", template.save(Grammar.builder()
+                .name("vBas4")
+                .grammarType(GrammarType.CHANGE)
+                .changeGrammarMap(List.of(
+                        ChangeGrammar.builder().name("v1").deletingPart("る").addingPart("れ").build(),
+
+                        ChangeGrammar.builder().name("v5u").deletingPart("う").addingPart("え").build(),
+                        ChangeGrammar.builder().name("v5k").deletingPart("く").addingPart("け").build(),
+                        ChangeGrammar.builder().name("v5g").deletingPart("ぐ").addingPart("げ").build(),
+                        ChangeGrammar.builder().name("v5s").deletingPart("す").addingPart("せ").build(),
+                        ChangeGrammar.builder().name("v5t").deletingPart("つ").addingPart("て").build(),
+                        ChangeGrammar.builder().name("v5n").deletingPart("ぬ").addingPart("ね").build(),
+                        ChangeGrammar.builder().name("v5b").deletingPart("ぶ").addingPart("べ").build(),
+                        ChangeGrammar.builder().name("v5m").deletingPart("む").addingPart("め").build(),
+                        ChangeGrammar.builder().name("v5r").deletingPart("る").addingPart("れ").build(),
+
+                        ChangeGrammar.builder().name("vk").deletingPart("る").addingPart("れ").build(),
+                        ChangeGrammar.builder().name("vs").deletingPart("る").addingPart("れ").build()))
+                .build()));
+
+        grammarMap.put("vBas5", template.save(Grammar.builder()
+                .name("vBas5")
+                .grammarType(GrammarType.CHANGE)
+                .changeGrammarMap(List.of(
+                        ChangeGrammar.builder().name("v1").deletingPart("る").addingPart("よう").build(),
+
+                        ChangeGrammar.builder().name("v5u").deletingPart("う").addingPart("おう").build(),
+                        ChangeGrammar.builder().name("v5k").deletingPart("く").addingPart("こう").build(),
+                        ChangeGrammar.builder().name("v5g").deletingPart("ぐ").addingPart("ごう").build(),
+                        ChangeGrammar.builder().name("v5s").deletingPart("す").addingPart("そう").build(),
+                        ChangeGrammar.builder().name("v5t").deletingPart("つ").addingPart("とう").build(),
+                        ChangeGrammar.builder().name("v5n").deletingPart("ぬ").addingPart("のう").build(),
+                        ChangeGrammar.builder().name("v5b").deletingPart("ぶ").addingPart("ぼう").build(),
+                        ChangeGrammar.builder().name("v5m").deletingPart("む").addingPart("もう").build(),
+                        ChangeGrammar.builder().name("v5r").deletingPart("る").addingPart("ろう").build(),
+
+                        ChangeGrammar.builder().name("vk").deletingPart("くる").addingPart("こよう").build(),
+                        ChangeGrammar.builder().name("vs").deletingPart("する").addingPart("しよう").build()))
                 .build()));
 
 
