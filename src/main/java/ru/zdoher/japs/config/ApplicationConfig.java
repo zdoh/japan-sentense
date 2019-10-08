@@ -33,6 +33,7 @@ public class ApplicationConfig {
         @Value("classpath:/public/index.html") Resource html) {
         return route(GET("/"), request
                 -> ok().contentType(MediaType.TEXT_HTML).syncBody(html)
-        );
+        ).andRoute(GET("/study/sentence"), request
+                -> ok().contentType(MediaType.TEXT_HTML).syncBody(html));
     }
 }
