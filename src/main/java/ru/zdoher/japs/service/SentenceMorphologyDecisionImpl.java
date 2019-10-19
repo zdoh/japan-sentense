@@ -4,10 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.zdoher.japs.domain.sentence.Sentence;
 
 @Service
-public class SentenceMorphologyDecision {
-
-
-
+public class SentenceMorphologyDecisionImpl {
 
     public Sentence grammarDecide(Sentence sentence) {
 
@@ -15,7 +12,6 @@ public class SentenceMorphologyDecision {
     }
 
     public Sentence wordDecide(Sentence sentence) {
-
 
         return sentence;
     }

@@ -3,6 +3,7 @@ package ru.zdoher.japs;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ConfigurableApplicationContext;
 import ru.zdoher.japs.domain.sentence.Sentence;
 import ru.zdoher.japs.utilz.MorphologyWorkClass;
 
@@ -11,9 +12,10 @@ import ru.zdoher.japs.utilz.MorphologyWorkClass;
 @EnableConfigurationProperties
 public class JapanSentenseApplication {
     public static void main(String[] args) {
-        SpringApplication.run(JapanSentenseApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(JapanSentenseApplication.class, args);
 
-       new MorphologyWorkClass().doWork();
+        MorphologyWorkClass morphologyWorkClass = context.getBean(MorphologyWorkClass.class);
+        morphologyWorkClass.doWork();
     }
 
 

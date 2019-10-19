@@ -10,6 +10,8 @@ import ru.zdoher.japs.domain.grammar.AddingGrammar;
 import ru.zdoher.japs.domain.grammar.ChangeGrammar;
 import ru.zdoher.japs.domain.grammar.Grammar;
 import ru.zdoher.japs.domain.grammar.GrammarType;
+import ru.zdoher.japs.domain.morphology.KuramojiPartOfSpeech;
+import ru.zdoher.japs.domain.morphology.KuramojiTypeOfSpeech;
 import ru.zdoher.japs.domain.sentence.OtherPossibleSentence;
 import ru.zdoher.japs.domain.sentence.Sentence;
 import ru.zdoher.japs.domain.Politeness;
@@ -401,6 +403,12 @@ public class InitMongoDBDataChangeLog {
                 new Word("会社員", "かいしゃいん",
                         List.of(new TranslateEntity(langRu, "служащий фирмы"), new TranslateEntity(langEn, "company employee")),
                         List.of(partOfSpeechMap.get("n")))));
+
+        wordsMap.put("員", template.save(
+                new Word("員", "いん",
+                        List.of(new TranslateEntity(langRu, "член, сотрудник"), new TranslateEntity(langEn, "member")),
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("n-suf")))));
+
 
         wordsMap.put("社員", template.save(
                 new Word("社員", "しゃいん",
@@ -1986,7 +1994,7 @@ public class InitMongoDBDataChangeLog {
     }
 
     @ChangeSet(order = "015", id = "initialSentence", author = "zdoh", runAlways = true)
-    public void initSentence(MongoTemplate template) {
+    public void initSentence(MongoTemplate template)    {
 
         String minnaGrSourceL1 = textbookMap.get(MINNA_GR_1).getJapaneseName() + " - "
                 + textbookMap.get(MINNA_GR_1).getLessonList().get(0).getName();
@@ -2562,5 +2570,46 @@ public class InitMongoDBDataChangeLog {
 
     }
 
+    @ChangeSet(order = "016", id = "initialMorpPartOfSpeech", author = "zdoh", runAlways = true)
+    public void initMorpPartOfSpeech(MongoTemplate template) {
+        template.save(new KuramojiPartOfSpeech("名詞", List.of(new TranslateEntity(langRu, "существительное")), KuramojiTypeOfSpeech.MAIN));
+        template.save(new KuramojiPartOfSpeech("助詞", List.of(new TranslateEntity(langRu, "грам. служебное слово")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("動詞", List.of(new TranslateEntity(langRu, "грам. глагол")), KuramojiTypeOfSpeech.MAIN));
+        template.save(new KuramojiPartOfSpeech("助動詞", List.of(new TranslateEntity(langRu, "вспомогательные глаголы")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("記号", List.of(new TranslateEntity(langRu, "знак, символ")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("句点", List.of(new TranslateEntity(langRu, "знаки препинания")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("読点", List.of(new TranslateEntity(langRu, "запятая")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("形容詞", List.of(new TranslateEntity(langRu, "прилагательное (предикативное)")), KuramojiTypeOfSpeech.MAIN));
+        template.save(new KuramojiPartOfSpeech("接尾", List.of(new TranslateEntity(langRu, "суффикс")), KuramojiTypeOfSpeech.SUFFIX));
+        template.save(new KuramojiPartOfSpeech("代名詞", List.of(new TranslateEntity(langRu, "местоимение")), KuramojiTypeOfSpeech.MAIN));
+        template.save(new KuramojiPartOfSpeech("一般", List.of(new TranslateEntity(langRu, "обыкновенное")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("係助詞", List.of(new TranslateEntity(langRu, "связующая частица")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("副助詞", List.of(new TranslateEntity(langRu, "наречная частица")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("並立助詞", List.of(new TranslateEntity(langRu, "частица, используемая для перечисления элементов")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("終助詞", List.of(new TranslateEntity(langRu, "частица, заканчивающая предложениу")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("固有名詞", List.of(new TranslateEntity(langRu, "имя собственное")), KuramojiTypeOfSpeech.MAIN));
+        template.save(new KuramojiPartOfSpeech("人名", List.of(new TranslateEntity(langRu, "имя человека")), KuramojiTypeOfSpeech.MAIN));
+        template.save(new KuramojiPartOfSpeech("姓", List.of(new TranslateEntity(langRu, "фамилия")), KuramojiTypeOfSpeech.MAIN));
+        template.save(new KuramojiPartOfSpeech("括弧開", List.of(new TranslateEntity(langRu, "открытая скобка")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("括弧閉", List.of(new TranslateEntity(langRu, "закрытая скобка")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("地域", List.of(new TranslateEntity(langRu, "район, территория")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("国", List.of(new TranslateEntity(langRu, "страна")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("感動詞", List.of(new TranslateEntity(langRu, "междометие")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("連体詞", List.of(new TranslateEntity(langRu, "адноминальное прилагательное")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("非自立", List.of(new TranslateEntity(langRu, "не независимый")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("助数詞", List.of(new TranslateEntity(langRu, "суффикс счетчика")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("数", List.of(new TranslateEntity(langRu, "число, числительное")), KuramojiTypeOfSpeech.MAIN));
+        template.save(new KuramojiPartOfSpeech("名", List.of(new TranslateEntity(langRu, "имя")), KuramojiTypeOfSpeech.MAIN));
+        template.save(new KuramojiPartOfSpeech("自立", List.of(new TranslateEntity(langRu, "независимый, самостоятельный")), KuramojiTypeOfSpeech.MAIN));
+        template.save(new KuramojiPartOfSpeech("格助詞", List.of(new TranslateEntity(langRu, "частица маркировки случая")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("組織", List.of(new TranslateEntity(langRu, "название организации")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("連体化", List.of(new TranslateEntity(langRu, "адноминальное прилагательное")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("空白", List.of(new TranslateEntity(langRu, "пробел")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("副詞", List.of(new TranslateEntity(langRu, "наречие")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("接続詞", List.of(new TranslateEntity(langRu, "соединение частиц")), KuramojiTypeOfSpeech.OTHER));
+
+
+        //template.save(new KuramojiPartOfSpeech("名詞", List.of(new TranslateEntity(langRu, "существительное")), true));
+    }
 }
 
