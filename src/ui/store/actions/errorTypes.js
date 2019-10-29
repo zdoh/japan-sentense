@@ -1,0 +1,1 @@
+export const ERROR_401 = 'Request failed with status code 401';

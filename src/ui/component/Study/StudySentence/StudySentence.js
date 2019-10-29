@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import axios from "axios";
+
+
 import {Container} from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Quiz from "../Quiz/Quiz";
 import Col from "react-bootstrap/Col";
 import Option from "../../Option/Option";
+import {connect} from "react-redux";
 
 class StudySentence extends Component {
   option = new Option();
@@ -18,7 +21,7 @@ class StudySentence extends Component {
   }
 
   getRandSentence() {
-    axios.get('/sentence/random')
+    axios.get('/sentence/random', {headers: {Authorization: 'Bearer ' + this.props.token}})
       .then(response => {
         this.setState({
           sentence: response.data,
@@ -92,5 +95,11 @@ class StudySentence extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    token: state.token
+  }
+};
 
-export default StudySentence;
+
+export default connect(mapStateToProps)(StudySentence);

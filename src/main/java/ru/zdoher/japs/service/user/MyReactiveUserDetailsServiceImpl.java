@@ -19,6 +19,6 @@ public class MyReactiveUserDetailsServiceImpl implements ReactiveUserDetailsServ
 
     @Override
     public Mono<UserDetails> findByUsername(String username) {
-        return userRepository.findByUsername(username).map(User::toUserDetails).last();
+        return userRepository.findByUsername(username).map(User::toUserDetails);
     }
 }

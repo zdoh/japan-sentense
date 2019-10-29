@@ -10,34 +10,43 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.HttpStatusServerEntryPoint;
-import org.springframework.security.web.server.authentication.WebFilterChainServerAuthenticationSuccessHandler;
 import org.springframework.security.web.server.authorization.HttpStatusServerAccessDeniedHandler;
-import reactor.core.publisher.Mono;
 
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
 public class SecurityConfiguration {
 
+    private AuthenticationManager authenticationManager;
+
+    private SecurityContextRepository securityContextRepository;
+
+    public SecurityConfiguration(AuthenticationManager authenticationManager, SecurityContextRepository securityContextRepository) {
+        this.authenticationManager = authenticationManager;
+        this.securityContextRepository = securityContextRepository;
+    }
+
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-
         return http.csrf().disable()
                 .authorizeExchange()
-                    .pathMatchers("/api/word/random").permitAll()
+                    .pathMatchers("/api/word/random").hasRole("USER")
                     .pathMatchers("/api/word/**").hasRole("ADMIN")
-                    .pathMatchers("/api/sentence/random").permitAll()
+                    .pathMatchers("/api/sentence/random").hasRole("USER")
                     .pathMatchers("/api/sentence/**").hasRole("ADMIN")
-                    .pathMatchers("/api/kanji/random").permitAll()
+                    .pathMatchers("/api/kanji/random").hasRole("USER")
                     .pathMatchers("/api/kanji/**").hasRole("ADMIN")
+                    .pathMatchers("/api/textbook/simple").hasRole("ADMIN")
+                    .pathMatchers("/api/textbook/**").hasRole("ADMIN")
                     .pathMatchers("/**").permitAll()
-                .and().formLogin().loginPage("/login")
-                    .authenticationFailureHandler((exchange, exception) -> Mono.error(exception))
-                    .authenticationSuccessHandler(new WebFilterChainServerAuthenticationSuccessHandler())
-                .and().exceptionHandling()
+                    .pathMatchers("/login").permitAll()
+                .anyExchange().authenticated()
+                .and().formLogin().disable().httpBasic().disable()
+                    .authenticationManager(authenticationManager)
+                    .securityContextRepository(securityContextRepository)
+                .exceptionHandling()
                     .authenticationEntryPoint(new HttpStatusServerEntryPoint(HttpStatus.UNAUTHORIZED))
                     .accessDeniedHandler(new HttpStatusServerAccessDeniedHandler(HttpStatus.FORBIDDEN))
                 .and().build();
-
     }
 
     @Bean

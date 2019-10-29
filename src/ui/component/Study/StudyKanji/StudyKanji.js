@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
 import Option from "../../Option/Option";
 import axios from "axios";
 import Row from "react-bootstrap/Row";
@@ -17,7 +19,7 @@ class StudyKanji extends Component {
   }
 
   getRandSentence() {
-    axios.get('/kanji/random')
+    axios.get('/kanji/random', {headers: {Authorization: 'Bearer ' + this.props.token}})
       .then(response => {
         this.setState({
           kanji: response.data,
@@ -95,4 +97,11 @@ class StudyKanji extends Component {
   }
 }
 
-export default StudyKanji;
+const mapStateToProps = state => {
+  return {
+    token: state.token
+  }
+};
+
+
+export default connect(mapStateToProps)(StudyKanji);

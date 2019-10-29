@@ -4,10 +4,10 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Input from "../../Input/Input";
-
+import {connect} from "react-redux";
+import * as action from "../../../store/actions";
 
 class Login extends Component {
-
   state = {
     login: '',
     pass: '',
@@ -15,18 +15,9 @@ class Login extends Component {
   };
 
   inputLoginHandler = (event) => {
-    console.log(this.state.login + " " + this.state.pass);
-
     this.setState({
       [event.target.name]: event.target.value
     })
-  };
-
-  clickButtonHandler = (event) => {
-    event.preventDefault();
-
-    this.props.history.push
-    console.log("click");
   };
 
   closeHandler = () => {
@@ -36,7 +27,11 @@ class Login extends Component {
   };
 
   okHandler = () => {
+    this.setState({
+      show: false
+    });
 
+    this.props.onAuth(this.state.login, this.state.pass);
   };
 
   openHandler = () => {
@@ -46,9 +41,10 @@ class Login extends Component {
   };
 
 
-
   render() {
     const {login, pass} = {...this.state};
+
+    //console.log(login + " " + pass);
     /*const form = (
       <Form onSubmit={this.clickButtonHandler}>
         <Input elementType="input" labelSize="1" colSize="4" label="Логин:" placeholder="Введите логин" name="login"
@@ -68,6 +64,7 @@ class Login extends Component {
     );*/
 
     return (
+
       <div>
         <Nav>
           <Nav.Link eventKey="login" onSelect={this.openHandler}>Войти</Nav.Link>
@@ -80,13 +77,13 @@ class Login extends Component {
           <Modal.Body>
             <Form>
               <Input elementType="input2" label="Логин:" placeholder="Введите логин" name="login"
-                     value={login} change={this.inputLoginHandler} />
+                     value={login} change={this.inputLoginHandler}/>
 
               <Input elementType="password" label="Пароль:" placeholder="Введите пароль" name="pass"
-                     value={pass} change={this.inputLoginHandler} />
+                     value={pass} change={this.inputLoginHandler}/>
 
               <Form.Group controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Запомнить меня" />
+                <Form.Check type="checkbox" label="Запомнить меня"/>
               </Form.Group>
             </Form>
           </Modal.Body>
@@ -94,7 +91,7 @@ class Login extends Component {
             <Button variant="secondary" onClick={this.closeHandler}>
               Закрыть
             </Button>
-            <Button variant="primary" onClick={this.closeHandler}>
+            <Button variant="primary" onClick={this.okHandler}>
               Войти
             </Button>
           </Modal.Footer>
@@ -105,4 +102,10 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuth: (username, password) => dispatch(action.auth(username, password)),
+  }
+};
+
+export default connect(null, mapDispatchToProps)(Login);
