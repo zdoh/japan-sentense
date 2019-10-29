@@ -51,4 +51,8 @@ public class Textbook {
         this.textbookType = textbookType;
         lessonList = new ArrayList<>();
     }
+
+    public TextbookSimple toTextbookSimple() {
+        return new TextbookSimple(id, japaneseName, englishName);
+    }
 }

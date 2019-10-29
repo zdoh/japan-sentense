@@ -22,7 +22,7 @@ public class User {
 
     private List<String> roles;
 
-    public UserDetails toUserDetails() {
+    public MyUserDetails toUserDetails() {
         return new MyUserDetails(username, password, roles);
     }
 }
