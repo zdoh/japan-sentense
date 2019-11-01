@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// time to change
+
 @ChangeLog(order = "000")
 public class InitMongoDBDataChangeLog {
     private final String MINNA_S = "Minna no nihongo";
