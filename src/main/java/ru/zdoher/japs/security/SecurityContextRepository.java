@@ -38,7 +38,6 @@ public class SecurityContextRepository implements ServerSecurityContextRepositor
 
         if (authHeader != null && authHeader.startsWith(yamlConfig.getToken_prefix())) {
             String authToken = authHeader.substring(7);
-            System.out.println(authToken);
             Authentication auth = new UsernamePasswordAuthenticationToken(authToken, authToken);
             return this.authenticationManager.authenticate(auth).map(SecurityContextImpl::new);
         }
