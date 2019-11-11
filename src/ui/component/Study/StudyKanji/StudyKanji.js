@@ -61,19 +61,21 @@ class StudyKanji extends Component {
         <Container>
           <Row className="justify-content-md-center">
             Значение: {kanji.meaning.filter(p => {
-              return p.language.shortName === this.option.getLanguage();
-            }).map(p => {
-              return p.translate;
-            })}
-          </Row >
-          <Row className="justify-content-md-center">
-            Онъеми: {kanji.onyumi ? kanji.onyumi.join(" / ") : " - " }
+            return p.language.shortName === this.option.getLanguage();
+          }).map(p => {
+            return p.translate;
+          })}
           </Row>
           <Row className="justify-content-md-center">
-            Кунъеми: {kanji.kunyumi ? kanji.kunyumi.map(w => {
-              const pron = w.pronunciation ? `(${w.pronunciation})` : "";
-              return `${w.wordKanji} ${pron}` ;
-          }).join(" / ") : " - " }
+            Онъеми: {kanji.onyumi ? kanji.onyumi.join(" / ") : " - "}
+          </Row>
+          <Row className="justify-content-md-center">
+            Кунъеми:
+            {kanji.kunyumi ? kanji.kunyumi.map(w => {return w ? `${w}` : "";}).join(" / ") + ' / ' : ""}
+            {kanji.words ? kanji.words.map(w => {
+            const pron = w.pronunciation ? `(${w.pronunciation})` : "";
+            return `${w.wordKanji} ${pron}`;
+          }).join(" / ") : " - "}
           </Row>
           <Row className="justify-content-md-center">
             Якорь: {kanji.anchor ? `${kanji.anchor.wordKanji} (${kanji.anchor.pronunciation}) - ${kanji.anchor.translateEntities.filter(w => {
