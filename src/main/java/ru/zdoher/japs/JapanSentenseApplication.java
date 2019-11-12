@@ -3,6 +3,7 @@ package ru.zdoher.japs;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
@@ -10,6 +11,7 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 import org.springframework.web.reactive.config.WebFluxConfigurerComposite;
+import ru.zdoher.japs.utilz.MorphologyWorkClass;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +22,10 @@ import java.util.List;
 @EnableConfigurationProperties
 public class JapanSentenseApplication {
     public static void main(String[] args) {
-        SpringApplication.run(JapanSentenseApplication.class, args);
+        ApplicationContext context = SpringApplication.run(JapanSentenseApplication.class, args);
+
+        MorphologyWorkClass morphologyWorkClass = context.getBean(MorphologyWorkClass.class);
+        morphologyWorkClass.doWork();
     }
 
     // для отдельной разработки ui
