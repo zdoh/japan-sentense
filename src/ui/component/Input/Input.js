@@ -16,8 +16,29 @@ const input = (props) => {
         <FormGroup as={Row} className={props.classNames}>
           <Form.Label column sm={props.labelSize}>{props.label}</Form.Label>
           <Col sm={props.colSize}>
-            <FormControl name={props.name} type="text" value={props.value} onChange={props.change}/>
+            <FormControl name={props.name} placeholder={props.placeholder} type="text" value={props.value}
+                         onChange={props.change}/>
           </Col>
+        </FormGroup>
+      );
+      break;
+
+    case ("input2"):
+      inputElement = (
+        <FormGroup className={props.classNames}>
+          <Form.Label>{props.label}</Form.Label>
+          <FormControl name={props.name} placeholder={props.placeholder} type="text" value={props.value}
+                       onChange={props.change}/>
+        </FormGroup>
+      );
+      break;
+
+    case ("password"):
+      inputElement = (
+        <FormGroup className={props.classNames}>
+          <Form.Label>{props.label}</Form.Label>
+          <FormControl name={props.name} placeholder={props.placeholder} type="password" value={props.value}
+                       onChange={props.change}/>
         </FormGroup>
       );
       break;
@@ -30,8 +51,18 @@ const input = (props) => {
           </Col>
         </Form.Group>
       );
-
       break;
+
+    case ("button"):
+      inputElement = (
+        <Form.Group as={Row}>
+          <Col sm={{span: 10, offset: 2}}>
+            <Button type="submit">{props.buttonName}</Button>
+          </Col>
+        </Form.Group>
+      );
+      break;
+
     default:
       inputElement = (
         <FormGroup as={Row} controlId="formBasicKanji" className="justify-content-md-center">

@@ -8,3 +8,8 @@ spring:
   messages:
     encoding: UTF-8
     basename: bundle
+
+config:
+  secret: mySuperSecret
+  expiration: 21600
+  token_prefix: "Bearer "

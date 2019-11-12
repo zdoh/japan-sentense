@@ -1,16 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {createStore, compose, applyMiddleware} from "redux";
+
+import {Provider} from "react-redux";
 import './index.css';
 import App from './App';
-import axios from 'axios';
-import {BrowserRouter} from "react-router-dom";
+import authReducer from "./store/reducers/auth";
+import thunk from "redux-thunk";
 
-axios.defaults.baseURL = 'http://localhost:8080/api';
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(authReducer, composeEnhancers(
+  applyMiddleware(thunk)
+));
+
 
 const app = (
-    <BrowserRouter>
-        <App/>
-    </BrowserRouter>
+  <Provider store={store}>
+    <App/>
+  </Provider>
 );
 
 ReactDOM.render(app, document.getElementById('root'));

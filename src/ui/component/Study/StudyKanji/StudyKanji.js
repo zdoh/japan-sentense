@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
 import Option from "../../Option/Option";
 import axios from "axios";
 import Row from "react-bootstrap/Row";
@@ -17,7 +19,7 @@ class StudyKanji extends Component {
   }
 
   getRandSentence() {
-    axios.get('/kanji/random')
+    axios.get('/kanji/random', {headers: {Authorization: 'Bearer ' + this.props.token}})
       .then(response => {
         this.setState({
           kanji: response.data,
@@ -59,19 +61,21 @@ class StudyKanji extends Component {
         <Container>
           <Row className="justify-content-md-center">
             Значение: {kanji.meaning.filter(p => {
-              return p.language.shortName === this.option.getLanguage();
-            }).map(p => {
-              return p.translate;
-            })}
-          </Row >
-          <Row className="justify-content-md-center">
-            Онъеми: {kanji.onyumi ? kanji.onyumi.join(" / ") : " - " }
+            return p.language.shortName === this.option.getLanguage();
+          }).map(p => {
+            return p.translate;
+          })}
           </Row>
           <Row className="justify-content-md-center">
-            Кунъеми: {kanji.kunyumi ? kanji.kunyumi.map(w => {
-              const pron = w.pronunciation ? `(${w.pronunciation})` : "";
-              return `${w.wordKanji} ${pron}` ;
-          }).join(" / ") : " - " }
+            Онъеми: {kanji.onyumi ? kanji.onyumi.join(" / ") : " - "}
+          </Row>
+          <Row className="justify-content-md-center">
+            Кунъеми:
+            {kanji.kunyumi ? kanji.kunyumi.map(w => {return w ? `${w}` : "";}).join(" / ") + ' / ' : ""}
+            {kanji.words ? kanji.words.map(w => {
+            const pron = w.pronunciation ? `(${w.pronunciation})` : "";
+            return `${w.wordKanji} ${pron}`;
+          }).join(" / ") : " - "}
           </Row>
           <Row className="justify-content-md-center">
             Якорь: {kanji.anchor ? `${kanji.anchor.wordKanji} (${kanji.anchor.pronunciation}) - ${kanji.anchor.translateEntities.filter(w => {
@@ -95,4 +99,11 @@ class StudyKanji extends Component {
   }
 }
 
-export default StudyKanji;
+const mapStateToProps = state => {
+  return {
+    token: state.token
+  }
+};
+
+
+export default connect(mapStateToProps)(StudyKanji);

@@ -21,7 +21,9 @@ public class KanjiDto {
 
     private List<String> onyumi;
 
-    private List<Word> kunyumi;
+    private List<String> kunyumi;
+
+    private List<Word> words;
 
     private Word anchor;
 
@@ -32,11 +34,12 @@ public class KanjiDto {
                 kanji.getMeaning(),
                 kanji.getOnyumi(),
                 kanji.getKunyumi(),
+                kanji.getWords(),
                 kanji.getAnchor()
         );
     }
 
     public Kanji fromDto(KanjiDto kanjiDto) {
-        return new Kanji(id, kanji, meaning, onyumi, kunyumi, anchor);
+        return new Kanji(id, kanji, meaning, onyumi, kunyumi, words, anchor);
     }
 }
