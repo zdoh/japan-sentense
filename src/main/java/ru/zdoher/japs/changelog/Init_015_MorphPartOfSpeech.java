@@ -56,6 +56,13 @@ public class Init_015_MorphPartOfSpeech {
         template.save(new KuramojiPartOfSpeech("空白", List.of(new TranslateEntity(languageMap.get("ru"), "пробел")), KuramojiTypeOfSpeech.OTHER));
         template.save(new KuramojiPartOfSpeech("副詞", List.of(new TranslateEntity(languageMap.get("ru"), "наречие")), KuramojiTypeOfSpeech.OTHER));
         template.save(new KuramojiPartOfSpeech("接続詞", List.of(new TranslateEntity(languageMap.get("ru"), "соединение частиц")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("助詞類接続", List.of(new TranslateEntity(languageMap.get("ru"), "соединение частиц")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("サ変接続", List.of(new TranslateEntity(languageMap.get("ru"), "не понятное соединение")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("形容動詞語幹", List.of(new TranslateEntity(languageMap.get("ru"), "прилагательное глагол основы")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("接続助詞", List.of(new TranslateEntity(languageMap.get("ru"), "прилагательное глагол основы")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("接頭詞", List.of(new TranslateEntity(languageMap.get("ru"), "префикс")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("名詞接続", List.of(new TranslateEntity(languageMap.get("ru"), "существительное соединение")), KuramojiTypeOfSpeech.OTHER));
+        template.save(new KuramojiPartOfSpeech("副詞可能", List.of(new TranslateEntity(languageMap.get("ru"), "возможно наречие")), KuramojiTypeOfSpeech.OTHER));
 
 
         //template.save(new KuramojiPartOfSpeech("名詞", List.of(new TranslateEntity(langRu, "существительное")), true));

@@ -36,30 +36,31 @@ public class MorphologyWorkClass {
     }
 
     public void doWork() {
-
-        otstup();
+        otstup("начинаю");
         morphologyTest();
     }
 
-    public void otstup() {
+    public void otstup(String msg) {
         System.out.println();
         System.out.println("///////////////////////////////////////////////////////");
-        System.out.println("///  begin");
+        System.out.println("///  " + msg);
         System.out.println("///////////////////////////////////////////////////////");
         System.out.println();
     }
 
 
     public void morphologyTest() {
-        //Sentence sentence = new Sentence();
-        //sentence.setSentence("私は会社員ですか。");
+        Sentence sentence = new Sentence();
+        sentence.setSentence("私は会社員ですか。");
         //sentence.setSentence("私はマイク・ミラーです。");
         //sentence.setSentence("朝ご飯を食べます。");
         //sentence.setSentence("本当のことを話そうか話すまいか迷ったが、結局全部話した。");
         //sentence.setSentence("お忙しい。忙しい");
 
-        List<Sentence> sentenceList = sentenceRepository.findAll().collectList().block();
+        /*List<Sentence> sentenceList = sentenceRepository.findAll().collectList().block();
 
+
+        otstup("определяю слова");
         for (Sentence sentence : sentenceList) {
             System.out.print(sentence.getSentence() + ": ");
             boolean sentenceHasMissingData = getWordMap(sentence);
@@ -69,9 +70,11 @@ public class MorphologyWorkClass {
             } else {
                 System.out.println("found some error!");
             }
-        }
+        }*/
 
-
+        otstup("определяю слова");
+        boolean sentenceHasMissingData = getWordMap(sentence);
+        System.out.println(sentence);
 
 
     }
@@ -103,12 +106,13 @@ public class MorphologyWorkClass {
         sentenceHasMissingData = fillSentenceByWord(myKuramojiTokens, sentence);
         if (sentenceHasMissingData) return true;
 
-        sentenceRepository.save(sentence).block();
+        System.out.println(sentence);
+        //sentenceRepository.save(sentence).block();
 
         //System.out.println(sentence);
         //myKuramojiTokens.forEach(k -> System.out.println(k.getToken().getSurface() + ": " + k.getKuramojiPartOfSpeeches()));
 
-            //stringKuramojiPartOfSpeechMap.forEach((k, v ) -> System.out.println(k + " - " + v));
+        //stringKuramojiPartOfSpeechMap.forEach((k, v ) -> System.out.println(k + " - " + v));
 
 
             /*for (String kuramojiPartOfSpeech : havedKuramojiPartOfSpeech) {
@@ -193,20 +197,36 @@ public class MorphologyWorkClass {
         boolean sentenceHasMissingData = false;
 
         for (MyKuramojiToken kuramojiToken : myKuramojiToken) {
-            if (!kuramojiToken.getKuramojiPartOfSpeeches().isEmpty() && kuramojiToken.getKuramojiPartOfSpeeches().contains(KuramojiTypeOfSpeech.MAIN)) {
-                Word tmpWord = getWordFromDb(kuramojiToken.getToken().getBaseForm());
-                if (tmpWord == null) {
-                    sentenceHasMissingData = true;
-                    morphologyLogService.missingWord(sentence.getSentence(), kuramojiToken.getToken().getSurface());
-                } else {
-                    sentence.getWords().add(tmpWord);
+
+
+            for (KuramojiPartOfSpeech kuramojiPartOfSpeech : kuramojiToken.getKuramojiPartOfSpeeches()) {
+                if (kuramojiPartOfSpeech.getType() != null &&
+                        kuramojiPartOfSpeech.getType() == (KuramojiTypeOfSpeech.MAIN)) {
+
+                    System.out.println(kuramojiPartOfSpeech.getName() + " " + kuramojiPartOfSpeech.getType() + " " + kuramojiToken.getToken().getBaseForm());
+
+                    Word tmpWord = getWordFromDb(kuramojiToken.getToken().getBaseForm());
+                    if (tmpWord == null) {
+                        sentenceHasMissingData = true;
+                        morphologyLogService.missingWord(sentence.getSentence(), kuramojiToken.getToken().getSurface());
+                    } else {
+                        if (sentence.getWords() == null) {
+                            sentence.setWords(new ArrayList<>(List.of(tmpWord)));
+                        } else {
+                            sentence.getWords().add(tmpWord);
+                        }
+                    }
+
+                    break;
                 }
             }
+
         }
+
+        System.out.println(sentence);
 
         return sentenceHasMissingData;
     }
-
 
     private Word getWordFromDb(String word) {
         Word tmp = wordRepositories.findByWordKanji(word).block();
@@ -214,20 +234,4 @@ public class MorphologyWorkClass {
         return tmp;
     }
 
-    private List<Token> getAllToken(String sentence) {
-        return new Tokenizer().tokenize(sentence);
-
-
-
-        /*for (Token token : tokens) {
-            System.out.println(token.getSurface() + "\t" +
-                    token.getPartOfSpeechLevel1() + "|" +
-                    token.getPartOfSpeechLevel2() + "|" +
-                    token.getPartOfSpeechLevel3() + "|" +
-                    token.getPartOfSpeechLevel4() + "|" +
-                    token.getConjugationType() + "|" +
-                    token.getBaseForm() + "|" +
-                    token.getAllFeatures());
-        }*/
-    }
 }
