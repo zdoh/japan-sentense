@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import ru.zdoher.japs.domain.grammar.Grammar;
 import ru.zdoher.japs.domain.Word;
 import ru.zdoher.japs.domain.sentence.Sentence;
-import ru.zdoher.japs.domain.Politeness;
+import ru.zdoher.japs.domain.sentence.SentencePoliteness;
 import ru.zdoher.japs.domain.sentence.SentenceTranslate;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class SentenceDto {
 
     private String sentenceSource;
 
-    private Politeness politeness;
+    private SentencePoliteness sentencePoliteness;
 
     private Boolean conversation;
 
@@ -37,7 +37,7 @@ public class SentenceDto {
                 sentence.getSentence(),
                 sentence.getTranslateList(),
                 sentence.getSentenceSource(),
-                sentence.getPoliteness(),
+                sentence.getSentencePoliteness(),
                 sentence.getConversation(),
                 sentence.getGrammarList(),
                 sentence.getWords()
@@ -45,6 +45,6 @@ public class SentenceDto {
     }
 
     public Sentence fromDto() {
-        return new Sentence(id, sentence, translateList, sentenceSource, politeness, conversation, grammarList, words);
+        return new Sentence(id, sentence, translateList, sentenceSource, sentencePoliteness, conversation, grammarList, words);
     }
 }

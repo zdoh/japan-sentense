@@ -4,10 +4,9 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import ru.zdoher.japs.domain.Politeness;
+import ru.zdoher.japs.domain.sentence.SentencePoliteness;
 
 import java.util.List;
-import java.util.Map;
 
 @Data
 @Builder
@@ -26,7 +25,7 @@ public class Grammar {
 
     private List<ChangeGrammar> changeGrammarMap;
 
-    private Politeness politeness;
+    private SentencePoliteness sentencePoliteness;
 
     private boolean conversation;
 }

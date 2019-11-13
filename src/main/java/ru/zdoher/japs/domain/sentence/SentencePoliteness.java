@@ -1,4 +1,4 @@
-package ru.zdoher.japs.domain;
+package ru.zdoher.japs.domain.sentence;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document
-public class Politeness {
+public class SentencePoliteness {
 
     @Id
     private String id;
@@ -23,7 +23,7 @@ public class Politeness {
 
     private List<TranslateEntity> translateEntities;
 
-    public Politeness(String japName, List<TranslateEntity> translateEntities) {
+    public SentencePoliteness(String japName, List<TranslateEntity> translateEntities) {
         this.japName = japName;
         this.translateEntities = translateEntities;
     }

@@ -8,11 +8,11 @@ import ru.zdoher.japs.domain.textbook.Textbook;
 
 import java.util.Map;
 
-@ChangeLog(order = "010")
-public class Init_010_Lesson {
+@ChangeLog(order = "011")
+public class Init_011_Lesson {
     private Map<String, Textbook> textbookMap;
 
-    public Init_010_Lesson() {
+    public Init_011_Lesson() {
         textbookMap = InitMaps.textbookMap;
     }
 

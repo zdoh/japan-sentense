@@ -10,12 +10,12 @@ import ru.zdoher.japs.domain.sentence.SentencePoliteness;
 import java.util.List;
 import java.util.Map;
 
-@ChangeLog(order = "013")
-public class Init_013_SentencePoliteness {
+@ChangeLog(order = "007")
+public class Init_007_SentencePoliteness {
     private Map<String, SentencePoliteness> sentencePolitenessMap;
     private Map<String, Language> languageMap;
 
-    public Init_013_SentencePoliteness() {
+    public Init_007_SentencePoliteness() {
         sentencePolitenessMap = InitMaps.sentencePolitenessMap;
         languageMap = InitMaps.languageMap;
     }

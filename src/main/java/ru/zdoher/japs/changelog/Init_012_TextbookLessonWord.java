@@ -9,12 +9,12 @@ import ru.zdoher.japs.domain.textbook.Textbook;
 import java.util.ArrayList;
 import java.util.Map;
 
-@ChangeLog(order = "011")
-public class Init_011_TextbookLessonWord {
+@ChangeLog(order = "012")
+public class Init_012_TextbookLessonWord {
     private Map<String, Word> wordsMap;
     private Map<String, Textbook> textbookMap;
 
-    public Init_011_TextbookLessonWord() {
+    public Init_012_TextbookLessonWord() {
         wordsMap = InitMaps.wordsMap;
         textbookMap = InitMaps.textbookMap;
     }

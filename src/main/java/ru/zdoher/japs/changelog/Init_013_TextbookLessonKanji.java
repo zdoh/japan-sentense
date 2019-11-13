@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@ChangeLog(order = "012")
-public class Init_012_TextbookLessonKanji {
+@ChangeLog(order = "013")
+public class Init_013_TextbookLessonKanji {
     private Map<String, Kanji> kanjiMap;
     private Map<String, Textbook> textbookMap;
 
-    public Init_012_TextbookLessonKanji() {
+    public Init_013_TextbookLessonKanji() {
         kanjiMap = InitMaps.kanjiMap;
         textbookMap = InitMaps.textbookMap;
     }

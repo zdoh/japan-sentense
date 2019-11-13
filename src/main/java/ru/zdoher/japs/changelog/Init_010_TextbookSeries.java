@@ -7,11 +7,11 @@ import ru.zdoher.japs.domain.textbook.TextbookSeries;
 
 import java.util.Map;
 
-@ChangeLog(order = "008")
-public class Init_008_TextbookSeries {
+@ChangeLog(order = "010")
+public class Init_010_TextbookSeries {
     private Map<String, TextbookSeries> textbookSeriesMap;
 
-    public Init_008_TextbookSeries() {
+    public Init_010_TextbookSeries() {
         textbookSeriesMap = InitMaps.textbookSeriesMap;
     }
 

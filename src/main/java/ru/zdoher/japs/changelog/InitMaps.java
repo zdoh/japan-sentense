@@ -1,6 +1,7 @@
 package ru.zdoher.japs.changelog;
 
 import ru.zdoher.japs.domain.*;
+import ru.zdoher.japs.domain.grammar.Grammar;
 import ru.zdoher.japs.domain.sentence.SentencePoliteness;
 import ru.zdoher.japs.domain.textbook.Textbook;
 import ru.zdoher.japs.domain.textbook.TextbookSeries;
