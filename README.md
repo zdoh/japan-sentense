@@ -18,6 +18,7 @@
 - учет и анализ правильности данных ответов для подбора обучающей информации
 
 
+
 что используется:
 Spring Boot, Spring Security, Spring Webflux, RestAPI, MongoDB
 
