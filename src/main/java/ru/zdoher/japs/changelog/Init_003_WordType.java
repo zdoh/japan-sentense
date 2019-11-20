@@ -182,6 +182,9 @@ public class Init_003_WordType {
         partOfSpeechMap.putIfAbsent("お", template.save(new PartOfSpeech("お",
                 List.of(new TranslateEntity(languageMap.get("ru"), "показатель вежливости, префикс к существительному")), "")));
 
+        partOfSpeechMap.putIfAbsent("name", template.save(new PartOfSpeech("name",
+                List.of(new TranslateEntity(languageMap.get("ru"), "имя, фамилия и тд")), "", true)));
+
 /*
         wordTypeMap.putIfAbsent("", template.save(new WordType("",
                 List.of(new TranslateEntity(languageMap.get("ru"), ""), new TranslateEntity(languageMap.get("en"), "")), "")));

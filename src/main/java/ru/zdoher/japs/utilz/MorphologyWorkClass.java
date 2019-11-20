@@ -51,15 +51,13 @@ public class MorphologyWorkClass {
 
     public void morphologyTest() {
         Sentence sentence = new Sentence();
-        sentence.setSentence("私は会社員ですか。");
-        //sentence.setSentence("私はマイク・ミラーです。");
+        //sentence.setSentence("私は会社員ですか。");
+        sentence.setSentence("ミラーさんはIMCの社員です。");
         //sentence.setSentence("朝ご飯を食べます。");
         //sentence.setSentence("本当のことを話そうか話すまいか迷ったが、結局全部話した。");
         //sentence.setSentence("お忙しい。忙しい");
 
         /*List<Sentence> sentenceList = sentenceRepository.findAll().collectList().block();
-
-
         otstup("определяю слова");
         for (Sentence sentence : sentenceList) {
             System.out.print(sentence.getSentence() + ": ");
@@ -75,7 +73,6 @@ public class MorphologyWorkClass {
         otstup("определяю слова");
         boolean sentenceHasMissingData = getWordMap(sentence);
         System.out.println(sentence);
-
 
     }
 
@@ -203,8 +200,6 @@ public class MorphologyWorkClass {
                 if (kuramojiPartOfSpeech.getType() != null &&
                         kuramojiPartOfSpeech.getType() == (KuramojiTypeOfSpeech.MAIN)) {
 
-                    System.out.println(kuramojiPartOfSpeech.getName() + " " + kuramojiPartOfSpeech.getType() + " " + kuramojiToken.getToken().getBaseForm());
-
                     Word tmpWord = getWordFromDb(kuramojiToken.getToken().getBaseForm());
                     if (tmpWord == null) {
                         sentenceHasMissingData = true;
@@ -220,7 +215,6 @@ public class MorphologyWorkClass {
                     break;
                 }
             }
-
         }
 
         System.out.println(sentence);

@@ -23,6 +23,8 @@ public class PartOfSpeech {
 
     private String japanName;
 
+    private boolean hidden;
+
     public PartOfSpeech(String shortName, List<TranslateEntity> translateName, String japanName) {
         this.shortName = shortName;
         this.translateName = translateName;
@@ -32,5 +34,12 @@ public class PartOfSpeech {
     public PartOfSpeech(String shortName, List<TranslateEntity> translateName) {
         this.shortName = shortName;
         this.translateName = translateName;
+    }
+
+    public PartOfSpeech(String shortName, List<TranslateEntity> translateName, String japanName, boolean hidden) {
+        this.shortName = shortName;
+        this.translateName = translateName;
+        this.japanName = japanName;
+        this.hidden = hidden;
     }
 }

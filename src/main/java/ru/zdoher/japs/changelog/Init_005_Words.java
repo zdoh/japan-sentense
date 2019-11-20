@@ -877,6 +877,83 @@ public class Init_005_Words {
                         List.of(new TranslateEntity(languageMap.get("ru"), "так"), new TranslateEntity(languageMap.get("en"), "1) so; really; seeming; (adj-na,suf) 2) (after masu stem or adj-stem) appearing that; seeming that; looking like; having the appearance of")),
                         List.of(partOfSpeechMap.get("adv")))));
 
+        wordsMap.put("マイク", template.save(
+                new Word("マイク", "マイク",
+                        List.of(new TranslateEntity(languageMap.get("ru"), "Майк"), new TranslateEntity(languageMap.get("en"), "Mike")),
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("name")))));
+
+        wordsMap.put("ミラー", template.save(
+                new Word("ミラー", "ミラー",
+                        List.of(new TranslateEntity(languageMap.get("ru"), "Миллер"), new TranslateEntity(languageMap.get("en"), "Miller")),
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("name")))));
+
+        wordsMap.put("員", template.save(
+                new Word("員", "いん",
+                        List.of(new TranslateEntity(languageMap.get("ru"), "член, сотрудник"), new TranslateEntity(languageMap.get("en"), "member")),
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("n-suf")))));
+
+        wordsMap.put("サントス", template.save(
+                new Word("サントス", "サントス",
+                        List.of(new TranslateEntity(languageMap.get("ru"), "Сантов"), new TranslateEntity(languageMap.get("en"), "Santos")),
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("name")))));
+
+        wordsMap.put("さん", template.save(
+                new Word("さん", "さん",
+                        List.of(new TranslateEntity(languageMap.get("ru"), "мистер, миссис, сан и тд"), new TranslateEntity(languageMap.get("en"), "Mr.; Mrs.; Miss; Ms.")),
+                        List.of(partOfSpeechMap.get("suf")))));
+
+        wordsMap.put("ちゃん", template.save(
+                new Word("ちゃん", "ちゃん",
+                        List.of(new TranslateEntity(languageMap.get("ru"), "суффикс тян"), new TranslateEntity(languageMap.get("en"), "tyan suffix")),
+                        List.of(partOfSpeechMap.get("suf")))));
+
+        wordsMap.put("IMC", template.save(
+                new Word("IMC", "IMC",
+                        List.of(new TranslateEntity(languageMap.get("ru"), "IMC - название компании"), new TranslateEntity(languageMap.get("en"), "IMC - company name")),
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("name")))));
+
+        wordsMap.put("AKC", template.save(
+                new Word("AKC", "AKC",
+                        List.of(new TranslateEntity(languageMap.get("ru"), "AKC - название компании"), new TranslateEntity(languageMap.get("en"), "AKC - company name")),
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("name")))));
+
+        wordsMap.put("BMW", template.save(
+                new Word("BMW", "BMW",
+                        List.of(new TranslateEntity(languageMap.get("ru"), "BMW - название компании"), new TranslateEntity(languageMap.get("en"), "BMW - company name")),
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("name")))));
+
+        wordsMap.put("ワン", template.save(
+                new Word("ワン", "ワン",
+                        List.of(new TranslateEntity(languageMap.get("ru"), "Ван"), new TranslateEntity(languageMap.get("en"), "Wan")),
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("name")))));
+
+        wordsMap.put("ワット", template.save(
+                new Word("ワット", "ワット",
+                        List.of(new TranslateEntity(languageMap.get("ru"), "Ватт"), new TranslateEntity(languageMap.get("en"), "Watt")),
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("name")))));
+
+        wordsMap.put("テレーザ", template.save(
+                new Word("テレーザ", "テレーザ",
+                        List.of(new TranslateEntity(languageMap.get("ru"), "Тереза"), new TranslateEntity(languageMap.get("en"), "Tereza")),
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("name")))));
+
+        wordsMap.put("イー", template.save(
+                new Word("イー", "イー",
+                        List.of(new TranslateEntity(languageMap.get("ru"), "Ии"), new TranslateEntity(languageMap.get("en"), "Ii")),
+                        List.of(partOfSpeechMap.get("n"), partOfSpeechMap.get("name")))));
+
+        wordsMap.put("桜", template.save(
+                new Word("桜", "さくら",
+                        List.of(new TranslateEntity(languageMap.get("ru"), "сакура"), new TranslateEntity(languageMap.get("en"), "sakura")),
+                        List.of(partOfSpeechMap.get("n")))));
+
+        wordsMap.put("歳", template.save(
+                new Word("歳", "さい",
+                        List.of(new TranslateEntity(languageMap.get("ru"), "кол-во лет (кому-то)"), new TranslateEntity(languageMap.get("en"), "-years-old")),
+                        List.of(partOfSpeechMap.get("suf")))));
+
+
+
 
 
 
