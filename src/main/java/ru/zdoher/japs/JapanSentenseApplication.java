@@ -11,6 +11,7 @@ import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 import org.springframework.web.reactive.config.WebFluxConfigurerComposite;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,6 +22,11 @@ import java.util.List;
 public class JapanSentenseApplication {
     public static void main(String[] args) {
         SpringApplication.run(JapanSentenseApplication.class, args);
+        try {
+            org.h2.tools.Console.main(args);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     // для отдельной разработки ui
