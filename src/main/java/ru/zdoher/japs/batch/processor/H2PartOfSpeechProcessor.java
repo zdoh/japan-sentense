@@ -24,7 +24,7 @@ public class H2PartOfSpeechProcessor implements ItemProcessor<PartOfSpeech, H2Pa
         List<H2TranslateEntity> h2TranslateEntities = new ArrayList<>();
         for (TranslateEntity translateEntity : item.getTranslateName()) {
             H2Language language = h2LanguageRepository.findByShortName(translateEntity.getLanguage().getShortName());
-            h2TranslateEntities.add(new H2TranslateEntity(language, translateEntity.getTranslate()));
+            h2TranslateEntities.add(new H2TranslateEntity(language, translateEntity.getTranslate(), h2PartOfSpeech));
         }
         h2PartOfSpeech.setH2TranslateEntity(h2TranslateEntities);
         return h2PartOfSpeech;

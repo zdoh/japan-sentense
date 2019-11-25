@@ -21,6 +21,8 @@ public class H2PartOfSpeech {
     private String shortName;
 
     @OneToMany(targetEntity = H2TranslateEntity.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Column(name = "h2_translate_entity")
+    @JoinColumn(name = "h2_part_of_speech")
     private List<H2TranslateEntity> h2TranslateEntity;
 
     private String japanName;

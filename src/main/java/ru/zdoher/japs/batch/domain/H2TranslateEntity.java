@@ -22,8 +22,12 @@ public class H2TranslateEntity {
 
     private String translate;
 
-    public H2TranslateEntity(H2Language language, String translate) {
+    @ManyToOne(targetEntity = H2PartOfSpeech.class)
+    private H2PartOfSpeech h2PartOfSpeech;
+
+    public H2TranslateEntity(H2Language language, String translate, H2PartOfSpeech h2PartOfSpeech) {
         this.language = language;
         this.translate = translate;
+        this.h2PartOfSpeech = h2PartOfSpeech;
     }
 }
