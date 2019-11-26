@@ -5,11 +5,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import ru.zdoher.japs.domain.Word;
 import ru.zdoher.japs.repositories.WordRepositories;
-import ru.zdoher.japs.rest.dto.WordDto;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/word")
@@ -20,7 +16,6 @@ public class WordController {
     public WordController(WordRepositories wordRepositories) {
         this.wordRepositories = wordRepositories;
     }
-
 
     @GetMapping("/")
     public Flux<Word> getAll() {

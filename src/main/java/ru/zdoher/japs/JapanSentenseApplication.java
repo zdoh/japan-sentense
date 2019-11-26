@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableConfigurationProperties
+@IntegrationComponentScan
 public class JapanSentenseApplication {
     public static void main(String[] args) {
         SpringApplication.run(JapanSentenseApplication.class, args);
