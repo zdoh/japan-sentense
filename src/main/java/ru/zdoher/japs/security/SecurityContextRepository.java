@@ -33,7 +33,6 @@ public class SecurityContextRepository implements ServerSecurityContextRepositor
     @Override
     public Mono<SecurityContext> load(ServerWebExchange serverWebExchange) {
         ServerHttpRequest request = serverWebExchange.getRequest();
-        System.out.println(serverWebExchange.getRequest().getHeaders());
         String authHeader = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 
         if (authHeader != null && authHeader.startsWith(yamlConfig.getToken_prefix())) {

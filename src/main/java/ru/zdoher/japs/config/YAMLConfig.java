@@ -16,4 +16,5 @@ public class YAMLConfig {
     private String secret;
     private String expiration;
     private String token_prefix;
+    private String waradai_url;
 }
