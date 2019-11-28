@@ -109,6 +109,12 @@
             <version>2.0.0</version>
         </dependency>
 
+        <!-- Актуатор -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
 
         <!-- Тестирование -->
         <dependency>
