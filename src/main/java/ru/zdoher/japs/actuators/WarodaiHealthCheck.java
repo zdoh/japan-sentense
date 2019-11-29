@@ -3,22 +3,21 @@ package ru.zdoher.japs.actuators;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
-import ru.zdoher.japs.service.WaradaiCheckService;
+import ru.zdoher.japs.service.WarodaiCheckService;
 
 
 @Component
 public class WarodaiHealthCheck implements HealthIndicator {
-    private WaradaiCheckService waradaiCheckService;
+    private WarodaiCheckService warodaiCheckService;
 
-    public WarodaiHealthCheck(WaradaiCheckService waradaiCheckService) {
-        this.waradaiCheckService = waradaiCheckService;
+    public WarodaiHealthCheck(WarodaiCheckService warodaiCheckService) {
+        this.warodaiCheckService = warodaiCheckService;
     }
 
     @Override
     public Health health() {
         try {
-            boolean waradaiCheck = waradaiCheckService.check();
-            if (waradaiCheck) {
+            if (warodaiCheckService.check()) {
                 return Health.up().withDetail("message", "Waradai в порядке").build();
             } else {
                 return Health.down().withDetail("message", "Waradai не отвечает!").build();

@@ -26,4 +26,4 @@ config:
   secret: mySuperSecret
   expiration: 21600
   token_prefix: "Bearer "
-  waradai_url: "https://warodai.ru/lookup/index.php"
+  warodai_url: "https://warodai.ru/lookup/index.php"

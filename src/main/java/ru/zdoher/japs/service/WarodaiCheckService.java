@@ -7,15 +7,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @Service
-public class WaradaiCheckService {
+public class WarodaiCheckService {
     private YAMLConfig yamlConfig;
 
-    public WaradaiCheckService(YAMLConfig yamlConfig) {
+    public WarodaiCheckService(YAMLConfig yamlConfig) {
         this.yamlConfig = yamlConfig;
     }
 
     public boolean check() throws Exception {
-        URL siteURL = new URL(yamlConfig.getWaradai_url());
+        URL siteURL = new URL(yamlConfig.getWarodai_url());
         HttpURLConnection connection = (HttpURLConnection) siteURL.openConnection();
         connection.setRequestMethod("GET");
         connection.setConnectTimeout(3000);
