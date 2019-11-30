@@ -1,9 +1,8 @@
 spring:
   data:
     mongodb:
-      host: localhost
-      port: 27017
       database: jap_sen
+      host: mongo
 
   messages:
     encoding: UTF-8
