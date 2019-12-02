@@ -1,11 +1,11 @@
 package ru.zdoher.japs.repositories;
 
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.zdoher.japs.domain.Grammar;
 
 @Repository
 public interface GrammarRepository
-        extends ReactiveMongoRepository<Grammar, String> {
+        extends CrudRepository<Grammar, String> {
 
 }

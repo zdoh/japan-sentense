@@ -1,15 +1,13 @@
 package ru.zdoher.japs.rest;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 import ru.zdoher.japs.domain.Word;
 import ru.zdoher.japs.repositories.WordRepositories;
-import ru.zdoher.japs.rest.dto.WordDto;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/api/word")
@@ -23,29 +21,65 @@ public class WordController {
 
 
     @GetMapping("/")
-    public Flux<Word> getAll() {
+    @HystrixCommand(commandKey = "getAllWord", fallbackMethod = "buildFallbackWordsList")
+    public List<Word> getAll() {
+        sleepRandomly();
         return wordRepositories.findAll();
     }
 
     @DeleteMapping(value =  "/{id}")
-    public Mono<Void> delete(@PathVariable("id") String id) {
-        return wordRepositories.deleteById(id);
+    @HystrixCommand(commandKey = "deletWordById", defaultFallback = "")
+    public void delete(@PathVariable("id") String id) {
+        wordRepositories.deleteById(id);
     }
 
 
     @GetMapping("/{id}")
-    public Mono<Word> getById(@PathVariable("id") String id) {
-        return wordRepositories.findById(id);
+    @HystrixCommand(commandKey = "getWordById", fallbackMethod = "buildFallbackWord")
+    public Word getById(@PathVariable("id") String id) {
+        return wordRepositories.findById(id).orElse(null);
     }
 
     @PutMapping("/")
-    public Mono<Word> insert(@RequestBody Word word) {
+    @HystrixCommand(commandKey = "getWordInsert", fallbackMethod = "buildFallbackWord")
+    public Word insert(@RequestBody Word word) {
         return wordRepositories.save(word);
     }
 
     @GetMapping("/random")
-    public Mono<Word> getRandom() {
+    @HystrixCommand(commandKey = "getWordRandom", fallbackMethod = "buildFallbackWord")
+    public Word getRandom() {
         return wordRepositories.getRandom(Word.class);
+    }
+
+    private Word buildFallbackWord() {
+        Word kanji = new Word();
+        kanji.setId("1L");
+        kanji.setWordKanji("none word");
+        return kanji;
+    }
+
+    private List<Word> buildFallbackWordsList() {
+        Word word = new Word();
+        word.setId("1L");
+        word.setWordKanji("none word");
+        List<Word> wordList = new ArrayList<>();
+        wordList.add(word);
+        return wordList;
+    }
+
+    private void sleepRandomly() {
+        Random rand = new Random();
+        int randomNum = rand.nextInt(3) + 1;
+        if(randomNum == 3) {
+            System.out.println("Проверка работы хистрикса");
+            try {
+                System.out.println("засыпаю на " + System.currentTimeMillis());
+                Thread.sleep(7000);
+            } catch (InterruptedException e) {
+                System.out.println("Хистрикс сработал" + System.currentTimeMillis());
+            }
+        }
     }
 
 }

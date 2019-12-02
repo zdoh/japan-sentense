@@ -9,6 +9,19 @@ spring:
     encoding: UTF-8
     basename: bundle
 
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+    getKanjiRandom:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
 config:
   secret: mySuperSecret
   expiration: 21600

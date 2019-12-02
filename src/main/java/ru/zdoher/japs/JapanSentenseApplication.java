@@ -3,10 +3,8 @@ package ru.zdoher.japs;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.reactive.CorsWebFilter;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 import org.springframework.web.reactive.config.WebFluxConfigurerComposite;
@@ -18,6 +16,8 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableConfigurationProperties
+@EnableCircuitBreaker
+//@EnableHystrixDashboard
 public class JapanSentenseApplication {
     public static void main(String[] args) {
         SpringApplication.run(JapanSentenseApplication.class, args);

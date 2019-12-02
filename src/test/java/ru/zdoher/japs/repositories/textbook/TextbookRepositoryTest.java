@@ -32,7 +32,7 @@ class TextbookRepositoryTest {
     @Autowired
     private TextbookRepository textbookRepository;
 
-    @Test
+    //@Test
     @DisplayName(" textbook add and get - success")
     void textbookAddAndGet() {
         TextbookSeries textbookSeries = new TextbookSeries("1", NameHelper.TEXTBOOK_SERIES_NAME, NameHelper.TEXTBOOK_SERIES_ENGLISHNAME);
@@ -40,7 +40,7 @@ class TextbookRepositoryTest {
         TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
         TextbookType textbookType = new TextbookType("1", NameHelper.TEXTBOOK_TYPE_NAME, List.of(translateEntity));
 
-        textbookSeriesRepository.save(textbookSeries).block();
+        /*textbookSeriesRepository.save(textbookSeries).block();
         textbookTypeRepository.save(textbookType).block();
 
         Textbook addedTextBook = new Textbook(NameHelper.TEXTBOOK_JAPANESENAME, NameHelper.TEXTBOOK_ENGLISHNAME,
@@ -60,6 +60,6 @@ class TextbookRepositoryTest {
                     return true;
                 })
                 .expectComplete()
-                .verify();
+                .verify();*/
     }
 }

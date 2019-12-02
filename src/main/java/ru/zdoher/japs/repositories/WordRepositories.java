@@ -1,12 +1,16 @@
 package ru.zdoher.japs.repositories;
 
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.zdoher.japs.domain.Word;
 import ru.zdoher.japs.repositories.aggregation.RepositoryAggregation;
 
+import java.util.List;
+
 @Repository
 public interface WordRepositories
-        extends ReactiveMongoRepository<Word, String>, RepositoryAggregation<Word> {
+        extends CrudRepository<Word, String>, RepositoryAggregation<Word> {
+
+    List<Word> findAll();
 
 }

@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("Class - SentenceRepository")
-@DataMongoTest
+//@DataMongoTest
 class SentenceRepositoryTest {
 
     @Autowired
@@ -35,11 +35,11 @@ class SentenceRepositoryTest {
         Sentence addedSentence = new Sentence(NameHelper.SENTENCE_SENTENCE, List.of(sentenceTranslate),
                         NameHelper.SENTENCE_SOURCE, sentencePoliteness, true);
 
-        sentenceRepository.save(addedSentence).block();
+        //sentenceRepository.save(addedSentence).block();
 
-        Mono<Sentence> sentenceResult = sentenceRepository.findById(addedSentence.getId());
+        //Mono<Sentence> sentenceResult = sentenceRepository.findById(addedSentence.getId());
 
-        StepVerifier
+        /*StepVerifier
                 .create(sentenceResult)
                 .expectNextMatches(sentence -> {
                     assertNotNull(sentence);
@@ -49,6 +49,6 @@ class SentenceRepositoryTest {
                     return true;
                 })
                 .expectComplete()
-                .verify();
+                .verify();*/
     }
 }

@@ -1,10 +1,13 @@
 package ru.zdoher.japs.repositories.textbook;
 
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.zdoher.japs.domain.textbook.Textbook;
 
+import java.util.List;
+
 @Repository
 public interface TextbookRepository
-        extends ReactiveMongoRepository<Textbook, String> {
+        extends CrudRepository<Textbook, String> {
+    List<Textbook> findAll();
 }

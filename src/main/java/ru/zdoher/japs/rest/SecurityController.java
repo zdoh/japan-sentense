@@ -31,17 +31,20 @@ public class SecurityController {
     }
 
     @PostMapping("/login")
-    public Mono<ResponseEntity<?>> login(@RequestBody AuthRequest authRequest) {
-        Mono<User> user = userRepository.findByUsername(authRequest.getUsername());
+    public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
+        User user = userRepository.findByUsername(authRequest.getUsername());
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
 
-        return user.map(User::toUserDetails)
-                .map(userDetail -> {
-            if (BCrypt.checkpw(authRequest.getPassword(), userDetail.getPassword())) {
-                return ResponseEntity.ok(jwtUtil.generateToken(userDetail));
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-            }
-        }).defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+        MyUserDetails myUserDetails = user.toUserDetails();
+
+        if (BCrypt.checkpw(authRequest.getPassword(), myUserDetails.getPassword())) {
+            return ResponseEntity.ok(jwtUtil.generateToken(myUserDetails));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
     }
 
 }

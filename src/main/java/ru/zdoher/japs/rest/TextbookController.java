@@ -10,6 +10,9 @@ import ru.zdoher.japs.domain.textbook.Textbook;
 import ru.zdoher.japs.domain.textbook.TextbookSimple;
 import ru.zdoher.japs.repositories.textbook.TextbookRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/textbook")
 public class TextbookController {
@@ -20,12 +23,12 @@ public class TextbookController {
     }
 
     @GetMapping("/simple")
-    public Flux<TextbookSimple> getSimpleList() {
-        return textbookRepository.findAll().map(Textbook::toTextbookSimple);
+    public List<TextbookSimple> getSimpleList() {
+        return textbookRepository.findAll().stream().map(Textbook::toTextbookSimple).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public Mono<Textbook> getById(@PathVariable("id") String id) {
-        return textbookRepository.findById(id);
+    public Textbook getById(@PathVariable("id") String id) {
+        return textbookRepository.findById(id).orElse(null);
     }
 }
