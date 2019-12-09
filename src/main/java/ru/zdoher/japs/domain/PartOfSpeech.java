@@ -26,6 +26,8 @@ public class PartOfSpeech {
 
     private String japanName;
 
+    private String kuramojiToken;
+
     private KuramojiTypeOfSpeech kuramojiTypeOfSpeech;
 
     private boolean hidden;
