@@ -3,6 +3,7 @@ package ru.zdoher.japs.changelog;
 import com.github.cloudyrock.mongock.ChangeLog;
 import com.github.cloudyrock.mongock.ChangeSet;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.http.codec.multipart.Part;
 import org.springframework.security.core.parameters.P;
 import ru.zdoher.japs.domain.Language;
 import ru.zdoher.japs.domain.PartOfSpeech;
@@ -202,76 +203,122 @@ public class Init_003_WordType {
                 .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "существительное, котором может использоваться как суффикс"), new TranslateEntity(languageMap.get("en"), "noun, used as a suffix")))
                 .build()));
 
-        partOfSpeechMap.putIfAbsent("n-pref", template.save(new PartOfSpeech("n-pref",
-                List.of(new TranslateEntity(languageMap.get("ru"), "существительное, котором может использоваться как префикс"), new TranslateEntity(languageMap.get("en"), "noun, used as a prefix")), "")));
+        partOfSpeechMap.putIfAbsent("n-pref", template.save(PartOfSpeech.builder()
+                .shortName("n-pref")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "существительное, котором может использоваться как префикс"), new TranslateEntity(languageMap.get("en"), "noun, used as a prefix")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("suf", template.save(new PartOfSpeech("suf",
-                List.of(new TranslateEntity(languageMap.get("ru"), "суффикс"), new TranslateEntity(languageMap.get("en"), "suffix")), "")));
+        partOfSpeechMap.putIfAbsent("suf", template.save(PartOfSpeech.builder()
+                .shortName("suf")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "суффикс"), new TranslateEntity(languageMap.get("en"), "suffix")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("exp", template.save(new PartOfSpeech("exp",
-                List.of(new TranslateEntity(languageMap.get("ru"), "выражение"), new TranslateEntity(languageMap.get("en"), "expressions (phrases, clauses, etc.)")), "")));
+        partOfSpeechMap.putIfAbsent("exp", template.save(PartOfSpeech.builder()
+                .shortName("exp")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "выражение"), new TranslateEntity(languageMap.get("en"), "expressions (phrases, clauses, etc.)")))
+                .build()));
 
         /// part of speech for grammar
 
-        partOfSpeechMap.putIfAbsent("は", template.save(new PartOfSpeech("は",
-                List.of(new TranslateEntity(languageMap.get("ru"), "частица は"), new TranslateEntity(languageMap.get("en"), "particle は")), "")));
+        partOfSpeechMap.putIfAbsent("は", template.save(PartOfSpeech.builder()
+                .shortName("は")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "частица は"), new TranslateEntity(languageMap.get("en"), "particle は")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("です", template.save(new PartOfSpeech("です",
-                List.of(new TranslateEntity(languageMap.get("ru"), "связка です"), new TranslateEntity(languageMap.get("en"), "....  です")), "")));
+        partOfSpeechMap.putIfAbsent("です", template.save(PartOfSpeech.builder()
+                .shortName("です")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "связка です"), new TranslateEntity(languageMap.get("en"), "....  です")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("じゃありません", template.save(new PartOfSpeech("じゃありません",
-                List.of(new TranslateEntity(languageMap.get("ru"), "разговорная отрицательная форма связки です")), "")));
+        partOfSpeechMap.putIfAbsent("じゃありません", template.save(PartOfSpeech.builder()
+                .shortName("じゃありません")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "разговорная отрицательная форма связки です")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("ではありません", template.save(new PartOfSpeech("ではありません",
-                List.of(new TranslateEntity(languageMap.get("ru"), "отрицательная форма связки です")), "")));
+        partOfSpeechMap.putIfAbsent("ではありません", template.save(PartOfSpeech.builder()
+                .shortName("ではありません")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "отрицательная форма связки です")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("か", template.save(new PartOfSpeech("か",
-                List.of(new TranslateEntity(languageMap.get("ru"), "вопросительная частица か")), "")));
+        partOfSpeechMap.putIfAbsent("か", template.save(PartOfSpeech.builder()
+                .shortName("か")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "вопросительная частица か")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("も", template.save(new PartOfSpeech("も",
-                List.of(new TranslateEntity(languageMap.get("ru"), "частица も")), "")));
+        partOfSpeechMap.putIfAbsent("も", template.save(PartOfSpeech.builder()
+                .shortName("も")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "частица も")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("の", template.save(new PartOfSpeech("の",
-                List.of(new TranslateEntity(languageMap.get("ru"), "частица の")), "")));
+        partOfSpeechMap.putIfAbsent("の", template.save(PartOfSpeech.builder()
+                .shortName("の")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "частица の")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("さん", template.save(new PartOfSpeech("さん",
-                List.of(new TranslateEntity(languageMap.get("ru"), "суффикс さん")), "")));
+        partOfSpeechMap.putIfAbsent("さん", template.save(PartOfSpeech.builder()
+                .shortName("さん")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "суффикс さん")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("ちゃん", template.save(new PartOfSpeech("ちゃん",
-                List.of(new TranslateEntity(languageMap.get("ru"), "суффикс ちゃん")), "")));
+        partOfSpeechMap.putIfAbsent("ちゃん", template.save(PartOfSpeech.builder()
+                .shortName("ちゃん")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "суффикс ちゃん")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("これ", template.save(new PartOfSpeech("これ",
-                List.of(new TranslateEntity(languageMap.get("ru"), "предметно-указательное местоимение これ")), "")));
+        partOfSpeechMap.putIfAbsent("これ", template.save(PartOfSpeech.builder()
+                .shortName("これ")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "предметно-указательное местоимение これ")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("それ", template.save(new PartOfSpeech("それ",
-                List.of(new TranslateEntity(languageMap.get("ru"), "предметно-указательное местоимение それ")), "")));
+        partOfSpeechMap.putIfAbsent("それ", template.save(PartOfSpeech.builder()
+                .shortName("それ")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "предметно-указательное местоимение それ")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("あれ", template.save(new PartOfSpeech("あれ",
-                List.of(new TranslateEntity(languageMap.get("ru"), "предметно-указательное местоимение あれ")), "")));
+        partOfSpeechMap.putIfAbsent("あれ", template.save(PartOfSpeech.builder()
+                .shortName("あれ")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "предметно-указательное местоимение あれ")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("この", template.save(new PartOfSpeech("この",
-                List.of(new TranslateEntity(languageMap.get("ru"), "относительно-указательное местоимение この")), "")));
+        partOfSpeechMap.putIfAbsent("この", template.save(PartOfSpeech.builder()
+                .shortName("この")
+                .translateName( List.of(new TranslateEntity(languageMap.get("ru"), "относительно-указательное местоимение この")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("その", template.save(new PartOfSpeech("その",
-                List.of(new TranslateEntity(languageMap.get("ru"), "относительно-указательное местоимение その")), "")));
+        partOfSpeechMap.putIfAbsent("その", template.save(PartOfSpeech.builder()
+                .shortName("その")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "относительно-указательное местоимение その")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("あの", template.save(new PartOfSpeech("あの",
-                List.of(new TranslateEntity(languageMap.get("ru"), "относительно-указательное местоимение あの")), "")));
+        partOfSpeechMap.putIfAbsent("あの", template.save(PartOfSpeech.builder()
+                .shortName("あの")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "относительно-указательное местоимение あの")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("文", template.save(new PartOfSpeech("文",
-                List.of(new TranslateEntity(languageMap.get("ru"), "показатель предложения")), "")));
+        partOfSpeechMap.putIfAbsent("文", template.save(PartOfSpeech.builder()
+                .shortName("文")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "показатель предложения")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("、", template.save(new PartOfSpeech("、",
-                List.of(new TranslateEntity(languageMap.get("ru"), "символ запятой")), "")));
+        partOfSpeechMap.putIfAbsent("、", template.save(PartOfSpeech.builder()
+                .shortName("、")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "символ запятой")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("。", template.save(new PartOfSpeech("。",
-                List.of(new TranslateEntity(languageMap.get("ru"), "символ точки")), "")));
+        partOfSpeechMap.putIfAbsent("。", template.save(PartOfSpeech.builder()
+                .shortName("。")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "символ точки")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("お", template.save(new PartOfSpeech("お",
-                List.of(new TranslateEntity(languageMap.get("ru"), "показатель вежливости, префикс к существительному")), "")));
+        partOfSpeechMap.putIfAbsent("お", template.save(PartOfSpeech.builder()
+                .shortName("お")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "показатель вежливости, префикс к существительному")))
+                .build()));
 
-        partOfSpeechMap.putIfAbsent("name", template.save(new PartOfSpeech("name",
-                List.of(new TranslateEntity(languageMap.get("ru"), "имя, фамилия и тд")), "", true)));
+        partOfSpeechMap.putIfAbsent("name", template.save(PartOfSpeech.builder()
+                .shortName("name")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "имя, фамилия и тд")))
+                .build()));
 
 /*
         wordTypeMap.putIfAbsent("", template.save(new WordType("",
