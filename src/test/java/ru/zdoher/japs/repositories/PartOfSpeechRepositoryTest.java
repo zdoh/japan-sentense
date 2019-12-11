@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.http.codec.multipart.Part;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 import ru.zdoher.japs.NameHelper;
@@ -31,7 +32,10 @@ class PartOfSpeechRepositoryTest {
     void partOfSpeechAddAndGet() {
         Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
         TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
-        PartOfSpeech addedPartOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
+        PartOfSpeech addedPartOfSpeech = PartOfSpeech.builder()
+                .shortName(NameHelper.POS_NAME)
+                .translateName(List.of(translateEntity))
+                .build();
 
         partOfSpeechRepository.save(addedPartOfSpeech).block();
 

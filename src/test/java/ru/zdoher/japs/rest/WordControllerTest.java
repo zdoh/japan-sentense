@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.codec.multipart.Part;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
@@ -48,7 +49,10 @@ class WordControllerTest {
 
         Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
         TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
-        PartOfSpeech partOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
+        PartOfSpeech partOfSpeech = PartOfSpeech.builder()
+                .shortName(NameHelper.POS_NAME)
+                .translateName(List.of(translateEntity))
+                .build();
         Word word = new Word("1", NameHelper.WORD_WORDKANJI, NameHelper.WORD_PRONUNCIATION,
                 List.of(translateEntity), List.of(partOfSpeech), false);
 
@@ -82,7 +86,10 @@ class WordControllerTest {
 
         Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
         TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
-        PartOfSpeech partOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
+        PartOfSpeech partOfSpeech = PartOfSpeech.builder()
+                .shortName(NameHelper.POS_NAME)
+                .translateName(List.of(translateEntity))
+                .build();
         Word word1 = new Word("1", NameHelper.WORD_WORDKANJI, NameHelper.WORD_PRONUNCIATION,
                 List.of(translateEntity), List.of(partOfSpeech), false);
 

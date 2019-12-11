@@ -29,7 +29,10 @@ class KanjiRepositoryTest {
     void kanjiCreateAndGet() {
         Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
         TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
-        PartOfSpeech partOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
+        PartOfSpeech partOfSpeech = PartOfSpeech.builder()
+                .shortName(NameHelper.POS_NAME)
+                .translateName(List.of(translateEntity))
+                .build();
         Word word = new Word(NameHelper.WORD_WORDKANJI, NameHelper.WORD_PRONUNCIATION,
                         List.of(translateEntity), List.of(partOfSpeech));
 
