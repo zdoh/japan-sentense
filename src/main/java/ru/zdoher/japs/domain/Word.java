@@ -1,6 +1,7 @@
 package ru.zdoher.japs.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -12,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document
+@Builder
 public class Word {
 
     @Id
@@ -23,19 +25,9 @@ public class Word {
 
     private List<TranslateEntity> translateEntities;
 
-    private List<PartOfSpeech> partOfSpeeches;
+    private PartOfSpeech mainPartOfSpeech;
+
+    private List<PartOfSpeech> sidePartOfSpeeches;
 
     private boolean dontShow;
-
-    public Word(String wordKanji, boolean dontShow) {
-        this.wordKanji = wordKanji;
-        this.dontShow = dontShow;
-    }
-
-    public Word(String wordKanji, String pronunciation, List<TranslateEntity> translateEntities, List<PartOfSpeech> partOfSpeeches) {
-        this.wordKanji = wordKanji;
-        this.pronunciation = pronunciation;
-        this.translateEntities = translateEntities;
-        this.partOfSpeeches = partOfSpeeches;
-    }
 }
