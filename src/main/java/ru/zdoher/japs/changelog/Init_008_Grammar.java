@@ -107,6 +107,14 @@ public class Init_008_Grammar {
                                 "идет речь, то второе существительное может опускаться. Например 「この本は私のです」"))))
                 .build()));
 
+        grammarMap.put("name+mr-suf", template.save(Grammar.builder()
+                .name("name+mr-suf")
+                .grammarType(GrammarType.ADDING)
+                .addingGrammar(new AddingGrammar(
+                        List.of(partOfSpeechMap.get("mr-suf"), partOfSpeechMap.get("name")), partOfSpeechMap.get("n"),
+                        List.of(new TranslateEntity(languageMap.get("ru"), ""))))
+                .build()));
+
         grammarMap.put("これ", template.save(Grammar.builder()
                 .name("これ")
                 .grammarType(GrammarType.ADDING)

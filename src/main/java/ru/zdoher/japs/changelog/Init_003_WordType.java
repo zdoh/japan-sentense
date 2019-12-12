@@ -43,7 +43,7 @@ public class Init_003_WordType {
                 .kuramojiTypeOfSpeech(KuramojiTypeOfSpeech.MAIN)
                 .build()));
 
-        partOfSpeechMap.putIfAbsent("`pn`", template.save(PartOfSpeech.builder()
+        partOfSpeechMap.putIfAbsent("pn", template.save(PartOfSpeech.builder()
                 .shortName("pn")
                 .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "местоимение"), new TranslateEntity(languageMap.get("en"), "pronoun")))
                 .japanName("代名詞")
@@ -55,6 +55,11 @@ public class Init_003_WordType {
         partOfSpeechMap.putIfAbsent("hon", template.save(PartOfSpeech.builder()
                 .shortName("hon")
                 .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "вежливая речь"), new TranslateEntity(languageMap.get("en"), "honorific or respectful (sonkeigo) language")))
+                .build()));
+
+        partOfSpeechMap.putIfAbsent("mr-suf", template.save(PartOfSpeech.builder()
+                .shortName("mr-suf")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "суффикс обращения к кому-то: мистер, миссис и тд, используемый в японском языке")))
                 .build()));
 
 
@@ -258,11 +263,19 @@ public class Init_003_WordType {
         partOfSpeechMap.putIfAbsent("さん", template.save(PartOfSpeech.builder()
                 .shortName("さん")
                 .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "суффикс さん")))
+                .kuramojiTypeOfSpeech(KuramojiTypeOfSpeech.SUFFIX)
                 .build()));
 
         partOfSpeechMap.putIfAbsent("ちゃん", template.save(PartOfSpeech.builder()
                 .shortName("ちゃん")
                 .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "суффикс ちゃん")))
+                .kuramojiTypeOfSpeech(KuramojiTypeOfSpeech.SUFFIX)
+                .build()));
+
+        partOfSpeechMap.putIfAbsent("くん", template.save(PartOfSpeech.builder()
+                .shortName("くん")
+                .translateName(List.of(new TranslateEntity(languageMap.get("ru"), "суффикс くん")))
+                .kuramojiTypeOfSpeech(KuramojiTypeOfSpeech.SUFFIX)
                 .build()));
 
         partOfSpeechMap.putIfAbsent("これ", template.save(PartOfSpeech.builder()
