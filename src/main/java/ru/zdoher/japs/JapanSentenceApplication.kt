@@ -1,49 +1,40 @@
-package ru.zdoher.japs;
+package ru.zdoher.japs
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.reactive.CorsWebFilter;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
-import org.springframework.web.reactive.config.CorsRegistry;
-import org.springframework.web.reactive.config.WebFluxConfigurer;
-import org.springframework.web.reactive.config.WebFluxConfigurerComposite;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import org.springframework.boot.SpringApplication
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.context.annotation.Bean
+import org.springframework.web.reactive.config.CorsRegistry
+import org.springframework.web.reactive.config.WebFluxConfigurer
+import org.springframework.web.reactive.config.WebFluxConfigurerComposite
 
 @SpringBootApplication
 @EnableConfigurationProperties
-public class JapanSentenseApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(JapanSentenseApplication.class, args);
-    }
-
+open class JapanSentenceApplication {
     // для отдельной разработки ui
-   /* @Bean
+    /* @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:9000");
+                registry.addMapping("/ **").allowedOrigins("http://localhost:9000");
             }
         };
     }*/
-
     @Bean
-    public WebFluxConfigurer corsConfigurer() {
-        return new WebFluxConfigurerComposite() {
-
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
+    open fun corsConfigurer(): WebFluxConfigurer {
+        return object : WebFluxConfigurerComposite() {
+            override fun addCorsMappings(registry: CorsRegistry) {
                 registry.addMapping("/**").allowedOrigins("*")
-                        .allowedMethods("*").allowedHeaders("*").allowCredentials(true);
+                    .allowedMethods("*").allowedHeaders("*").allowCredentials(true)
             }
+        }
+    }
 
-        };
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            SpringApplication.run(JapanSentenceApplication::class.java, *args)
+        }
     }
 }

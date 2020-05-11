@@ -1,42 +1,32 @@
-package ru.zdoher.japs.rest.dto;
+package ru.zdoher.japs.rest.dto
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import ru.zdoher.japs.domain.PartOfSpeech;
-import ru.zdoher.japs.domain.TranslateEntity;
-import ru.zdoher.japs.domain.Word;
+import ru.zdoher.japs.domain.PartOfSpeech
+import ru.zdoher.japs.domain.TranslateEntity
+import ru.zdoher.japs.domain.Word
 
-import java.util.List;
+data class WordDto (
+    val id: String?,
+    val wordKanji: String?,
+    val pronunciation: String,
+    val translateEntities: List<TranslateEntity>,
+    val partOfSpeeches: List<PartOfSpeech?>,
+    val dontShow: Boolean
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class WordDto {
-
-    private String id;
-
-    private String wordKanji;
-
-    private String pronunciation;
-
-    private List<TranslateEntity> translateEntities;
-
-    private List<PartOfSpeech> partOfSpeeches;
-
-    private boolean dontShow;
-
-    public static WordDto toDto(Word word) {
-        return new WordDto(
-                word.getId(),
-                word.getWordKanji(),
-                word.getPronunciation(),
-                word.getTranslateEntities(),
-                word.getPartOfSpeeches(),
-                word.isDontShow());
+    ){
+    fun fromDto(): Word {
+        return Word(id, wordKanji, pronunciation, translateEntities, partOfSpeeches, dontShow)
     }
 
-    public Word fromDto() {
-        return new Word(id, wordKanji, pronunciation, translateEntities, partOfSpeeches, dontShow);
+    companion object {
+        fun toDto(word: Word): WordDto {
+            return WordDto(
+                word.id,
+                word.wordKanji,
+                word.pronunciation,
+                word.translateEntities,
+                word.partOfSpeeches,
+                word.dontShow
+            )
+        }
     }
 }

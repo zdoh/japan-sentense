@@ -1,55 +1,45 @@
-package ru.zdoher.japs.security;
+package ru.zdoher.japs.security
 
-import io.jsonwebtoken.Claims;
-import org.springframework.security.authentication.ReactiveAuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.stereotype.Component;
-import reactor.core.publisher.Mono;
-import ru.zdoher.japs.domain.user.Role;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.security.authentication.ReactiveAuthenticationManager
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.stereotype.Component
+import reactor.core.publisher.Mono
+import ru.zdoher.japs.domain.user.Role
+import java.util.*
+import java.util.stream.Collectors
 
 @Component
-public class AuthenticationManager implements ReactiveAuthenticationManager {
-
-    private JWTUtil jwtUtil;
-
-    public AuthenticationManager(JWTUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
-    }
-
-    @Override
-    public Mono<Authentication> authenticate(Authentication authentication) {
-        String authToken = authentication.getCredentials().toString();
-        String username;
-
-        try {
-            username = jwtUtil.getUsernameFromToken(authToken);
-        } catch (Exception e) {
-            username = null;
+class AuthenticationManager(private val jwtUtil: JWTUtil) : ReactiveAuthenticationManager {
+    override fun authenticate(authentication: Authentication): Mono<Authentication> {
+        val authToken = authentication.credentials.toString()
+        val username: String?
+        username = try {
+            jwtUtil.getUsernameFromToken(authToken)
+        } catch (e: Exception) {
+            null
         }
-
         if (username != null && jwtUtil.validateToken(authToken)) {
-            Claims claims = jwtUtil.getAllClaimsFromToken(authToken);
-            List<String> rolesMap = claims.get("role", List.class);
-            List<Role> roles = new ArrayList<>();
-            for (String rolemap : rolesMap) {
-                roles.add(Role.valueOf(rolemap));
+            val claims = jwtUtil.getAllClaimsFromToken(authToken)
+            val rolesMap: List<*> =
+                claims.get("role", List::class.java)
+            val roles: MutableList<Role> =
+                ArrayList()
+            for (rolemap in rolesMap) {
+                roles.add(Role.valueOf(rolemap.toString()))
             }
-
-            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                    username,
-                    null,
-                    roles.stream().map(authority -> new SimpleGrantedAuthority(authority.name())).collect(Collectors.toList())
-            );
-
-            return Mono.just(auth);
+            val auth = UsernamePasswordAuthenticationToken(
+                username,
+                null,
+                roles.stream()
+                    .map { authority: Role ->
+                        SimpleGrantedAuthority(authority.name)
+                    }.collect(Collectors.toList())
+            )
+            return Mono.just(auth)
         }
-
-        return Mono.empty();
+        return Mono.empty()
     }
+
 }

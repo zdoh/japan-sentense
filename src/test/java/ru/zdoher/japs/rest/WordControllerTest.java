@@ -42,68 +42,68 @@ class WordControllerTest {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    @DisplayName(" get existing Word by id - success")
-    @Test
-    void getExistingWordById() throws JsonProcessingException {
+//    @DisplayName(" get existing Word by id - success")
+//    @Test
+//    void getExistingWordById() throws JsonProcessingException {
+//
+//        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
+//        TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
+//        PartOfSpeech partOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
+//        Word word = new Word("1", NameHelper.WORD_WORDKANJI, NameHelper.WORD_PRONUNCIATION,
+//                List.of(translateEntity), List.of(partOfSpeech), false);
+//
+//        given(wordRepositories.findById(word.getId())).willReturn(Mono.just(word));
+//
+//        WebTestClient
+//                .bindToController(wordController)
+//                .build().get().uri("/api/word/1")
+//                .exchange()
+//                .expectStatus().isOk()
+//                .expectBody().json(mapper.writeValueAsString(word));
+//
+//    }
 
-        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
-        TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
-        PartOfSpeech partOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
-        Word word = new Word("1", NameHelper.WORD_WORDKANJI, NameHelper.WORD_PRONUNCIATION,
-                List.of(translateEntity), List.of(partOfSpeech), false);
-
-        given(wordRepositories.findById(word.getId())).willReturn(Mono.just(word));
-
-        WebTestClient
-                .bindToController(wordController)
-                .build().get().uri("/api/word/1")
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody().json(mapper.writeValueAsString(word));
-
-    }
-
-    @DisplayName(" get not existing Word by id - success")
-    @Test
-    void getNotExistingWordById() throws JsonProcessingException {
-
-        WebTestClient
-                .bindToController(wordController)
-                .build().get().uri("/api/word/1")
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody().isEmpty();
-    }
+//    @DisplayName(" get not existing Word by id - success")
+//    @Test
+//    void getNotExistingWordById() throws JsonProcessingException {
+//
+//        WebTestClient
+//                .bindToController(wordController)
+//                .build().get().uri("/api/word/1")
+//                .exchange()
+//                .expectStatus().isOk()
+//                .expectBody().isEmpty();
+//    }
 
 
-    @DisplayName(" get all Word - success")
-    @Test
-    void getAll() throws JsonProcessingException {
+//    @DisplayName(" get all Word - success")
+//    @Test
+//    void getAll() throws JsonProcessingException {
+//
+//        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
+//        TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
+//        PartOfSpeech partOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
+//        Word word1 = new Word("1", NameHelper.WORD_WORDKANJI, NameHelper.WORD_PRONUNCIATION,
+//                List.of(translateEntity), List.of(partOfSpeech), false);
+//
+//        Word word2 = new Word("2", NameHelper.WORD_WORDKANJI, NameHelper.WORD_PRONUNCIATION,
+//                List.of(translateEntity), List.of(partOfSpeech), false);
+//
+//        Flux<Word> words = Flux.just(word1, word2);
+//
+//        given(wordRepositories.findAll()).willReturn(words);
+//
+//        WebTestClient
+//                .bindToController(wordController)
+//                .build().get().uri("/api/word/")
+//                .exchange()
+//                .expectStatus().isOk()
+//                .expectBody().json(mapper.writeValueAsString(List.of(word1, word2)));
+//    }
 
-        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
-        TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
-        PartOfSpeech partOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
-        Word word1 = new Word("1", NameHelper.WORD_WORDKANJI, NameHelper.WORD_PRONUNCIATION,
-                List.of(translateEntity), List.of(partOfSpeech), false);
-
-        Word word2 = new Word("2", NameHelper.WORD_WORDKANJI, NameHelper.WORD_PRONUNCIATION,
-                List.of(translateEntity), List.of(partOfSpeech), false);
-
-        Flux<Word> words = Flux.just(word1, word2);
-
-        given(wordRepositories.findAll()).willReturn(words);
-
-        WebTestClient
-                .bindToController(wordController)
-                .build().get().uri("/api/word/")
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody().json(mapper.writeValueAsString(List.of(word1, word2)));
-    }
-
-    @DisplayName(" delete word by id - success")
-    @Test
-    void deleteWordById() throws Exception {
+//    @DisplayName(" delete word by id - success")
+//    @Test
+//    void deleteWordById() throws Exception {
 
 /*        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
         TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
@@ -111,13 +111,17 @@ class WordControllerTest {
         Word word = new Word("1", NameHelper.WORD_WORDKANJI, NameHelper.WORD_PRONUNCIATION,
                 List.of(translateEntity), List.of(partOfSpeech), false);*/
 
-        WebTestClient
-                .bindToController(wordController)
-                .build().delete().uri("/api/word/1")
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody().isEmpty();
-    }
+//        WebTestClient
+//                .bindToController(wordController)
+//                .build().delete().uri("/api/word/1")
+//                .exchange()
+//                .expectStatus().isOk()
+//                .expectBody().isEmpty();
+//    }
+
+
+
+
 
 /*    @DisplayName(" insert word by id - success")
     @Test

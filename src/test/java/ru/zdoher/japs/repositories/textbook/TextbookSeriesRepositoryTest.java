@@ -20,25 +20,25 @@ class TextbookSeriesRepositoryTest {
     private TextbookSeriesRepository textbookSeriesRepository;
 
 
-    @Test
-    @DisplayName("textbookSeries add and get - success")
-    void textbookAddAndGet() {
-        TextbookSeries addedTextbookSeries =
-                new TextbookSeries(NameHelper.TEXTBOOK_SERIES_NAME, NameHelper.TEXTBOOK_SERIES_ENGLISHNAME);
-
-        textbookSeriesRepository.save(addedTextbookSeries).block();
-
-        Mono<TextbookSeries> textbookSeriesResult = textbookSeriesRepository.findById(addedTextbookSeries.getId());
-
-        StepVerifier
-                .create(textbookSeriesResult)
-                .expectNextMatches(textbookSeries -> {
-                    assertNotNull(textbookSeries);
-                    assertThat(textbookSeries.getName()).isEqualTo(NameHelper.TEXTBOOK_SERIES_NAME);
-                    assertThat(textbookSeries.getEnglishName()).isEqualTo(NameHelper.TEXTBOOK_SERIES_ENGLISHNAME);
-                    return true;
-                } )
-                .expectComplete()
-                .verify();
-    }
+//    @Test
+//    @DisplayName("textbookSeries add and get - success")
+//    void textbookAddAndGet() {
+//        TextbookSeries addedTextbookSeries =
+//                new TextbookSeries(NameHelper.TEXTBOOK_SERIES_NAME, NameHelper.TEXTBOOK_SERIES_ENGLISHNAME);
+//
+//        textbookSeriesRepository.save(addedTextbookSeries).block();
+//
+//        Mono<TextbookSeries> textbookSeriesResult = textbookSeriesRepository.findById(addedTextbookSeries.getId());
+//
+//        StepVerifier
+//                .create(textbookSeriesResult)
+//                .expectNextMatches(textbookSeries -> {
+//                    assertNotNull(textbookSeries);
+//                    assertThat(textbookSeries.getName()).isEqualTo(NameHelper.TEXTBOOK_SERIES_NAME);
+//                    assertThat(textbookSeries.getEnglishName()).isEqualTo(NameHelper.TEXTBOOK_SERIES_ENGLISHNAME);
+//                    return true;
+//                } )
+//                .expectComplete()
+//                .verify();
+//    }
 }

@@ -24,29 +24,29 @@ class GrammarRepositoryTest {
     @Autowired
     private GrammarRepository grammarRepository;
 
-    @Test
-    @DisplayName(" grammar add and get - success")
-    void grammarCreateAndGet() {
-        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
-        TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
-        PartOfSpeech partOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
-        Grammar addedGrammar = new Grammar(NameHelper.GRAMMAR_NAME, List.of(partOfSpeech), List.of(translateEntity));
-
-        grammarRepository.save(addedGrammar).block();
-
-        Mono<Grammar> grammarResult = grammarRepository.findById(addedGrammar.getId());
-
-        StepVerifier
-                .create(grammarResult)
-                .expectNextMatches(grammar -> {
-                    assertNotNull(grammar);
-                    assertThat(grammar.getName()).isEqualTo(NameHelper.GRAMMAR_NAME);
-                    assertThat(grammar.getGrammarCreate().get(0).getShortName()).isEqualTo(NameHelper.POS_NAME);
-                    assertThat(grammar.getGrammarCreate().get(0).getTranslateName().get(0).getTranslate()).isEqualTo(NameHelper.TRANSLATE_STR);
-                    assertThat(grammar.getGrammarCreate().get(0).getTranslateName().get(0).getLanguage().getShortName()).isEqualTo(NameHelper.LANGUAGE_SHORT_NAME);
-                    return true;
-                })
-                .expectComplete()
-                .verify();
-    }
+//    @Test
+//    @DisplayName(" grammar add and get - success")
+//    void grammarCreateAndGet() {
+//        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
+//        TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
+//        PartOfSpeech partOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
+//        Grammar addedGrammar = new Grammar(NameHelper.GRAMMAR_NAME, List.of(partOfSpeech), List.of(translateEntity));
+//
+//        grammarRepository.save(addedGrammar).block();
+//
+//        Mono<Grammar> grammarResult = grammarRepository.findById(addedGrammar.getId());
+//
+//        StepVerifier
+//                .create(grammarResult)
+//                .expectNextMatches(grammar -> {
+//                    assertNotNull(grammar);
+//                    assertThat(grammar.getName()).isEqualTo(NameHelper.GRAMMAR_NAME);
+//                    assertThat(grammar.getGrammarCreate().get(0).getShortName()).isEqualTo(NameHelper.POS_NAME);
+//                    assertThat(grammar.getGrammarCreate().get(0).getTranslateName().get(0).getTranslate()).isEqualTo(NameHelper.TRANSLATE_STR);
+//                    assertThat(grammar.getGrammarCreate().get(0).getTranslateName().get(0).getLanguage().getShortName()).isEqualTo(NameHelper.LANGUAGE_SHORT_NAME);
+//                    return true;
+//                })
+//                .expectComplete()
+//                .verify();
+//    }
 }

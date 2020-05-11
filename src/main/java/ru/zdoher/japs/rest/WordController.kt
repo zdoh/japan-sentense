@@ -1,51 +1,28 @@
-package ru.zdoher.japs.rest;
+package ru.zdoher.japs.rest
 
-import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-import ru.zdoher.japs.domain.Word;
-import ru.zdoher.japs.repositories.WordRepositories;
-import ru.zdoher.japs.rest.dto.WordDto;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.*
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
+import ru.zdoher.japs.domain.Word
+import ru.zdoher.japs.repositories.WordRepositories
 
 @RestController
 @RequestMapping("/api/word")
-public class WordController {
-
-    private final WordRepositories wordRepositories;
-
-    public WordController(WordRepositories wordRepositories) {
-        this.wordRepositories = wordRepositories;
-    }
-
+class WordController(private val wordRepositories: WordRepositories) {
 
     @GetMapping("/")
-    public Flux<Word> getAll() {
-        return wordRepositories.findAll();
-    }
+    fun all(): Flux<Word> = wordRepositories.findAll()
 
-    @DeleteMapping(value =  "/{id}")
-    public Mono<Void> delete(@PathVariable("id") String id) {
-        return wordRepositories.deleteById(id);
-    }
-
+    @DeleteMapping(value = ["/{id}"])
+    fun delete(@PathVariable("id") id: String): Mono<Void> = wordRepositories.deleteById(id)
 
     @GetMapping("/{id}")
-    public Mono<Word> getById(@PathVariable("id") String id) {
-        return wordRepositories.findById(id);
-    }
+    fun getById(@PathVariable("id") id: String): Mono<Word> = wordRepositories.findById(id)
 
     @PutMapping("/")
-    public Mono<Word> insert(@RequestBody Word word) {
-        return wordRepositories.save(word);
-    }
+    fun insert(@RequestBody word: Word): Mono<Word> = wordRepositories.save(word)
 
     @GetMapping("/random")
-    public Mono<Word> getRandom() {
-        return wordRepositories.getRandom(Word.class);
-    }
+    fun random(): Mono<Word> = wordRepositories.getRandom(Word::class)
 
 }

@@ -24,29 +24,29 @@ class WordRepositoriesTest {
     @Autowired
     private WordRepositories wordRepositories;
 
-    @Test
-    @DisplayName(" word add and get - success")
-    void wordAddAndGet() {
-        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
-        TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
-        PartOfSpeech partOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
-        Word addedWord = new Word(NameHelper.WORD_WORDKANJI, NameHelper.WORD_PRONUNCIATION,
-                List.of(translateEntity), List.of(partOfSpeech));
-
-        wordRepositories.save(addedWord).block();
-
-        Mono<Word> wordResult = wordRepositories.findById(addedWord.getId());
-
-        StepVerifier
-                .create(wordResult)
-                .expectNextMatches(word -> {
-                    assertNotNull(word);
-                    assertThat(word.getWordKanji()).isEqualTo(NameHelper.WORD_WORDKANJI);
-                    assertThat(word.getPartOfSpeeches().get(0).getShortName()).isEqualTo(NameHelper.POS_NAME);
-                    assertThat(word.getPartOfSpeeches().get(0).getTranslateName().get(0).getTranslate()).isEqualTo(NameHelper.TRANSLATE_STR);
-                    return true;
-                })
-                .expectComplete()
-                .verify();
-    }
+//    @Test
+//    @DisplayName(" word add and get - success")
+//    void wordAddAndGet() {
+//        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
+//        TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
+//        PartOfSpeech partOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
+//        Word addedWord = new Word(NameHelper.WORD_WORDKANJI, NameHelper.WORD_PRONUNCIATION,
+//                List.of(translateEntity), List.of(partOfSpeech));
+//
+//        wordRepositories.save(addedWord).block();
+//
+//        Mono<Word> wordResult = wordRepositories.findById(addedWord.getId());
+//
+//        StepVerifier
+//                .create(wordResult)
+//                .expectNextMatches(word -> {
+//                    assertNotNull(word);
+//                    assertThat(word.getWordKanji()).isEqualTo(NameHelper.WORD_WORDKANJI);
+//                    assertThat(word.getPartOfSpeeches().get(0).getShortName()).isEqualTo(NameHelper.POS_NAME);
+//                    assertThat(word.getPartOfSpeeches().get(0).getTranslateName().get(0).getTranslate()).isEqualTo(NameHelper.TRANSLATE_STR);
+//                    return true;
+//                })
+//                .expectComplete()
+//                .verify();
+//    }
 }

@@ -19,24 +19,24 @@ class LanguageRepositoryTest {
     @Autowired
     private LanguageRepository languageRepository;
 
-    @Test
-    @DisplayName(" language add and get - success")
-    void languageAddAndGet() {
-        Language addedLanguage = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
-
-        languageRepository.save(addedLanguage).block();
-
-        Mono<Language> languageResult = languageRepository.findById(addedLanguage.getId());
-
-        StepVerifier
-                .create(languageResult)
-                .expectNextMatches(language -> {
-                    assertNotNull(language);
-                    assertThat(language.getShortName()).isEqualTo(NameHelper.LANGUAGE_SHORT_NAME);
-                    assertThat(language.getFullName()).isEqualTo(NameHelper.LANGUAGE_FULL_NAME);
-                    return true;
-                })
-                .expectComplete()
-                .verify();
-    }
+//    @Test
+//    @DisplayName(" language add and get - success")
+//    void languageAddAndGet() {
+//        Language addedLanguage = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
+//
+//        languageRepository.save(addedLanguage).block();
+//
+//        Mono<Language> languageResult = languageRepository.findById(addedLanguage.getId());
+//
+//        StepVerifier
+//                .create(languageResult)
+//                .expectNextMatches(language -> {
+//                    assertNotNull(language);
+//                    assertThat(language.getShortName()).isEqualTo(NameHelper.LANGUAGE_SHORT_NAME);
+//                    assertThat(language.getFullName()).isEqualTo(NameHelper.LANGUAGE_FULL_NAME);
+//                    return true;
+//                })
+//                .expectComplete()
+//                .verify();
+//    }
 }

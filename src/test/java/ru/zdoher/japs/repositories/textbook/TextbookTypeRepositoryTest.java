@@ -28,30 +28,30 @@ class TextbookTypeRepositoryTest {
     @Autowired
     private LanguageRepository languageRepository;
 
-    @DisplayName(" textbooktype add and get - success")
-    @Test
-    void textbookTypeAddAndGet() {
-        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
-        TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
-        TextbookType addedTextbookType = new TextbookType(NameHelper.TEXTBOOK_TYPE_NAME, List.of(translateEntity));
-
-        textbookTypeRepository.save(addedTextbookType).block();
-
-        Mono<TextbookType> textbookTypeResult = textbookTypeRepository.findById(addedTextbookType.getId());
-
-        StepVerifier
-                .create(textbookTypeResult)
-                .expectNextMatches(textbookType -> {
-                    assertNotNull(textbookType);
-                    assertThat(textbookType.getName()).isEqualTo(NameHelper.TEXTBOOK_TYPE_NAME);
-                    assertThat(textbookType.getTranslateName().get(0).getTranslate()).isEqualTo(NameHelper.TRANSLATE_STR);
-
-
-                    return true;
-                })
-
-                .expectComplete()
-                .verify();
-
-    }
+//    @DisplayName(" textbooktype add and get - success")
+//    @Test
+//    void textbookTypeAddAndGet() {
+//        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
+//        TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
+//        TextbookType addedTextbookType = new TextbookType(NameHelper.TEXTBOOK_TYPE_NAME, List.of(translateEntity));
+//
+//        textbookTypeRepository.save(addedTextbookType).block();
+//
+//        Mono<TextbookType> textbookTypeResult = textbookTypeRepository.findById(addedTextbookType.getId());
+//
+//        StepVerifier
+//                .create(textbookTypeResult)
+//                .expectNextMatches(textbookType -> {
+//                    assertNotNull(textbookType);
+//                    assertThat(textbookType.getName()).isEqualTo(NameHelper.TEXTBOOK_TYPE_NAME);
+//                    assertThat(textbookType.getTranslateName().get(0).getTranslate()).isEqualTo(NameHelper.TRANSLATE_STR);
+//
+//
+//                    return true;
+//                })
+//
+//                .expectComplete()
+//                .verify();
+//
+//    }
 }

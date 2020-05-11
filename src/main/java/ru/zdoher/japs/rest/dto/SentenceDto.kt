@@ -1,50 +1,46 @@
-package ru.zdoher.japs.rest.dto;
+package ru.zdoher.japs.rest.dto
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import ru.zdoher.japs.domain.Grammar;
-import ru.zdoher.japs.domain.Word;
-import ru.zdoher.japs.domain.sentence.Sentence;
-import ru.zdoher.japs.domain.sentence.SentencePoliteness;
-import ru.zdoher.japs.domain.sentence.SentenceTranslate;
+import ru.zdoher.japs.domain.Grammar
+import ru.zdoher.japs.domain.Word
+import ru.zdoher.japs.domain.sentence.Sentence
+import ru.zdoher.japs.domain.sentence.SentencePoliteness
+import ru.zdoher.japs.domain.sentence.SentenceTranslate
 
-import java.util.List;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class SentenceDto {
-    private String id;
-
-    private String sentence;
-
-    private List<SentenceTranslate> translateList;
-
-    private String sentenceSource;
-
-    private SentencePoliteness politeness;
-
-    private Boolean conversation;
-
-    private List<Grammar> grammarList;
-
-    private List<Word> words;
-
-    public static SentenceDto toDto(Sentence sentence) {
-        return new SentenceDto(
-                sentence.getId(),
-                sentence.getSentence(),
-                sentence.getTranslateList(),
-                sentence.getSentenceSource(),
-                sentence.getPoliteness(),
-                sentence.getConversation(),
-                sentence.getGrammarList(),
-                sentence.getWords()
-        );
+data class SentenceDto(
+    val id: String? = null,
+    val sentence: String? = null,
+    val translateList: List<SentenceTranslate>? = null,
+    val sentenceSource: String? = null,
+    val politeness: SentencePoliteness? = null,
+    val conversation: Boolean = false,
+    val grammarList: List<Grammar> = mutableListOf(),
+    val words: List<Word> = mutableListOf()
+) {
+    fun fromDto(): Sentence {
+        return Sentence(
+            id,
+            sentence!!,
+            translateList!!,
+            sentenceSource!!,
+            politeness!!,
+            conversation,
+            grammarList,
+            words
+        )
     }
 
-    public Sentence fromDto() {
-        return new Sentence(id, sentence, translateList, sentenceSource, politeness, conversation, grammarList, words);
+    companion object {
+        fun toDto(sentence: Sentence): SentenceDto {
+            return SentenceDto(
+                sentence.id,
+                sentence.sentence,
+                sentence.translateList,
+                sentence.sentenceSource,
+                sentence.politeness,
+                sentence.conversation,
+                sentence.grammarList,
+                sentence.words
+            )
+        }
     }
 }

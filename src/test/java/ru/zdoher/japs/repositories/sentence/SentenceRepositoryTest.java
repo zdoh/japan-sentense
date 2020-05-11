@@ -25,30 +25,30 @@ class SentenceRepositoryTest {
     @Autowired
     private SentenceRepository sentenceRepository;
 
-    @Test
-    @DisplayName(" sentence add and get - success")
-    void sentenceAddAndGet() {
-        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
-        SentenceTranslate sentenceTranslate = new SentenceTranslate(language, NameHelper.SENTENCE_TRANSLATE);
-        TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
-        SentencePoliteness sentencePoliteness = new SentencePoliteness(NameHelper.SENTENCE_POLITENESS_NAME, List.of(translateEntity));
-        Sentence addedSentence = new Sentence(NameHelper.SENTENCE_SENTENCE, List.of(sentenceTranslate),
-                        NameHelper.SENTENCE_SOURCE, sentencePoliteness, true);
-
-        sentenceRepository.save(addedSentence).block();
-
-        Mono<Sentence> sentenceResult = sentenceRepository.findById(addedSentence.getId());
-
-        StepVerifier
-                .create(sentenceResult)
-                .expectNextMatches(sentence -> {
-                    assertNotNull(sentence);
-                    assertThat(sentence.getSentence()).isEqualTo(NameHelper.SENTENCE_SENTENCE);
-                    assertThat(sentence.getSentenceSource()).isEqualTo(NameHelper.SENTENCE_SOURCE);
-                    assertThat(sentence.getTranslateList().get(0).getTranslate()).isEqualTo(NameHelper.SENTENCE_TRANSLATE);
-                    return true;
-                })
-                .expectComplete()
-                .verify();
-    }
+//    @Test
+//    @DisplayName(" sentence add and get - success")
+//    void sentenceAddAndGet() {
+//        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
+//        SentenceTranslate sentenceTranslate = new SentenceTranslate(language, NameHelper.SENTENCE_TRANSLATE);
+//        TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
+//        SentencePoliteness sentencePoliteness = new SentencePoliteness(NameHelper.SENTENCE_POLITENESS_NAME, List.of(translateEntity));
+//        Sentence addedSentence = new Sentence(NameHelper.SENTENCE_SENTENCE, List.of(sentenceTranslate),
+//                        NameHelper.SENTENCE_SOURCE, sentencePoliteness, true);
+//
+//        sentenceRepository.save(addedSentence).block();
+//
+//        Mono<Sentence> sentenceResult = sentenceRepository.findById(addedSentence.getId());
+//
+//        StepVerifier
+//                .create(sentenceResult)
+//                .expectNextMatches(sentence -> {
+//                    assertNotNull(sentence);
+//                    assertThat(sentence.getSentence()).isEqualTo(NameHelper.SENTENCE_SENTENCE);
+//                    assertThat(sentence.getSentenceSource()).isEqualTo(NameHelper.SENTENCE_SOURCE);
+//                    assertThat(sentence.getTranslateList().get(0).getTranslate()).isEqualTo(NameHelper.SENTENCE_TRANSLATE);
+//                    return true;
+//                })
+//                .expectComplete()
+//                .verify();
+//    }
 }

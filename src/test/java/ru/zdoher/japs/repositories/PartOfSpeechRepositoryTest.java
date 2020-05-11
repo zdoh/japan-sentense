@@ -26,28 +26,28 @@ class PartOfSpeechRepositoryTest {
     @Autowired
     private LanguageRepository languageRepository;
 
-    @Test
-    @DisplayName(" partOfSpeech add and get - success")
-    void partOfSpeechAddAndGet() {
-        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
-        TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
-        PartOfSpeech addedPartOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
-
-        partOfSpeechRepository.save(addedPartOfSpeech).block();
-
-        Mono<PartOfSpeech> partOfSpeechResult = partOfSpeechRepository.findById(addedPartOfSpeech.getId());
-
-        StepVerifier
-                .create(partOfSpeechResult)
-                .expectNextMatches(partOfSpeech -> {
-                    assertNotNull(partOfSpeech);
-                    assertThat(partOfSpeech.getShortName()).isEqualTo(NameHelper.POS_NAME);
-                    assertThat(partOfSpeech.getTranslateName().get(0).getTranslate()).isEqualTo(NameHelper.TRANSLATE_STR);
-                    assertThat(partOfSpeech.getTranslateName().get(0).getLanguage().getShortName()).isEqualTo(NameHelper.LANGUAGE_SHORT_NAME);
-                    return true;
-                })
-                .expectComplete()
-                .verify();
-
-    }
+//    @Test
+//    @DisplayName(" partOfSpeech add and get - success")
+//    void partOfSpeechAddAndGet() {
+//        Language language = new Language(NameHelper.LANGUAGE_SHORT_NAME, NameHelper.LANGUAGE_FULL_NAME);
+//        TranslateEntity translateEntity = new TranslateEntity(language, NameHelper.TRANSLATE_STR);
+//        PartOfSpeech addedPartOfSpeech = new PartOfSpeech(NameHelper.POS_NAME, List.of(translateEntity));
+//
+//        partOfSpeechRepository.save(addedPartOfSpeech).block();
+//
+//        Mono<PartOfSpeech> partOfSpeechResult = partOfSpeechRepository.findById(addedPartOfSpeech.getId());
+//
+//        StepVerifier
+//                .create(partOfSpeechResult)
+//                .expectNextMatches(partOfSpeech -> {
+//                    assertNotNull(partOfSpeech);
+//                    assertThat(partOfSpeech.getShortName()).isEqualTo(NameHelper.POS_NAME);
+//                    assertThat(partOfSpeech.getTranslateName().get(0).getTranslate()).isEqualTo(NameHelper.TRANSLATE_STR);
+//                    assertThat(partOfSpeech.getTranslateName().get(0).getLanguage().getShortName()).isEqualTo(NameHelper.LANGUAGE_SHORT_NAME);
+//                    return true;
+//                })
+//                .expectComplete()
+//                .verify();
+//
+//    }
 }

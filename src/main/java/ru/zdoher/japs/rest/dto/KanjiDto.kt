@@ -1,45 +1,33 @@
-package ru.zdoher.japs.rest.dto;
+package ru.zdoher.japs.rest.dto
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import ru.zdoher.japs.domain.Kanji;
-import ru.zdoher.japs.domain.TranslateEntity;
-import ru.zdoher.japs.domain.Word;
+import ru.zdoher.japs.domain.Kanji
+import ru.zdoher.japs.domain.TranslateEntity
+import ru.zdoher.japs.domain.Word
 
-import java.util.List;
+data class KanjiDto(
+    val id: String? = null,
+    val kanji: String,
+    val meaning: List<TranslateEntity>,
+    val onyumi: List<String>? = null,
+    val kunyumi: List<String>? = null,
+    val words: List<Word?>? = null,
+    val anchor: Word
+) {
+    fun fromDto(kanjiDto: KanjiDto?): Kanji {
+        return Kanji(id, kanji, meaning, onyumi, kunyumi, words, anchor)
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class KanjiDto {
-    private String id;
-
-    private String kanji;
-
-    private List<TranslateEntity> meaning;
-
-    private List<String> onyumi;
-
-    private List<String> kunyumi;
-
-    private List<Word> words;
-
-    private Word anchor;
-
-    public static KanjiDto toDto(Kanji kanji) {
-        return new KanjiDto(
-                kanji.getId(),
-                kanji.getKanji(),
-                kanji.getMeaning(),
-                kanji.getOnyumi(),
-                kanji.getKunyumi(),
-                kanji.getWords(),
-                kanji.getAnchor()
-        );
     }
-
-    public Kanji fromDto(KanjiDto kanjiDto) {
-        return new Kanji(id, kanji, meaning, onyumi, kunyumi, words, anchor);
+    companion object {
+        fun toDto(kanji: Kanji): KanjiDto {
+            return KanjiDto(
+                kanji.id,
+                kanji.kanji,
+                kanji.meaning,
+                kanji.onyumi,
+                kanji.kunyumi,
+                kanji.words,
+                kanji.anchor
+            )
+        }
     }
 }

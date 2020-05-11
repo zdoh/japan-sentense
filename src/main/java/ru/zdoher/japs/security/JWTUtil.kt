@@ -1,72 +1,52 @@
-package ru.zdoher.japs.security;
+package ru.zdoher.japs.security
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.stereotype.Component;
-import ru.zdoher.japs.config.YAMLConfig;
-import ru.zdoher.japs.domain.user.MyUserDetails;
-import ru.zdoher.japs.domain.user.User;
-
-import java.io.Serializable;
-import java.util.Base64;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import io.jsonwebtoken.Claims
+import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.SignatureAlgorithm
+import org.springframework.stereotype.Component
+import ru.zdoher.japs.config.YAMLConfig
+import ru.zdoher.japs.domain.user.MyUserDetails
+import java.io.Serializable
+import java.util.*
 
 @Component
-public class JWTUtil implements Serializable {
+class JWTUtil(private val yamlConfig: YAMLConfig) : Serializable {
+    fun getAllClaimsFromToken(token: String?): Claims =
+        Jwts.parser().setSigningKey(yamlConfig.secret).parseClaimsJws(token).body
 
-    private static final long serialVersionUID = 1L;
+    fun getUsernameFromToken(token: String?): String = getAllClaimsFromToken(token).subject
 
-    private YAMLConfig yamlConfig;
+    fun getExpirationDateFromToken(token: String?): Date = getAllClaimsFromToken(token).expiration
 
-    public JWTUtil(YAMLConfig yamlConfig) {
-        this.yamlConfig = yamlConfig;
+    fun generateToken(user: MyUserDetails): AuthResponse {
+        val claims: MutableMap<String, Any> = HashMap()
+        claims["role"] = user.getRoles()
+        return doGenerateToken(claims, user)
     }
 
-    public Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(yamlConfig.getSecret()).parseClaimsJws(token).getBody();
+    fun validateToken(token: String): Boolean = !isTokenExpired(token)
+
+    private fun isTokenExpired(token: String): Boolean = getExpirationDateFromToken(token).before(Date())
+
+    private fun doGenerateToken(
+        claims: Map<String, Any>,
+        user: MyUserDetails
+    ): AuthResponse {
+        val expirationTimeLong = yamlConfig.expiration!!.toLong()
+        val createdDate = Date()
+        val expirationDate = Date(createdDate.time + expirationTimeLong * 1000)
+        val token = Jwts.builder()
+            .setClaims(claims)
+            .setSubject(user.username)
+            .setIssuedAt(createdDate)
+            .setExpiration(expirationDate)
+            .signWith(SignatureAlgorithm.HS256, yamlConfig.secret)
+            .compact()
+        return AuthResponse(user.username, token, user.getRoles(), expirationDate)
     }
 
-    public String getUsernameFromToken(String token) {
-        return getAllClaimsFromToken(token).getSubject();
+    companion object {
+        private const val serialVersionUID = 1L
     }
 
-    public Date getExpirationDateFromToken(String token) {
-        return getAllClaimsFromToken(token).getExpiration();
-    }
-
-    private Boolean isTokenExpired(String token) {
-        final Date expiration = getExpirationDateFromToken(token);
-        return expiration.before(new Date());
-    }
-
-    public AuthResponse generateToken(MyUserDetails user) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("role", user.getRoles());
-        return doGenerateToken(claims, user);
-    }
-
-    private AuthResponse doGenerateToken(Map<String, Object> claims, MyUserDetails user) {
-        long expirationTimeLong = Long.parseLong(yamlConfig.getExpiration());
-        final Date createdDate = new Date();
-        final Date expirationDate = new Date(createdDate.getTime() + expirationTimeLong * 1000);
-        String token = Jwts.builder()
-                .setClaims(claims)
-                .setSubject(user.getUsername())
-                .setIssuedAt(createdDate)
-                .setExpiration(expirationDate)
-                .signWith(SignatureAlgorithm.HS256, yamlConfig.getSecret())
-                .compact();
-
-        return new AuthResponse(user.getUsername(), token, user.getRoles(), expirationDate);
-    }
-
-    public Boolean validateToken(String token) {
-        return !isTokenExpired(token);
-    }
 }
