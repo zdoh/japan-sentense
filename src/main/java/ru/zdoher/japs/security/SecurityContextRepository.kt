@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component
 import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 import ru.zdoher.japs.config.YAMLConfig
-import java.util.function.Function
 
 @Component
 class SecurityContextRepository(
@@ -23,7 +22,7 @@ class SecurityContextRepository(
 
     override fun load(serverWebExchange: ServerWebExchange): Mono<SecurityContext> {
         val request = serverWebExchange.request
-        println(serverWebExchange.request.headers)
+        //println(serverWebExchange.request.headers)
         val authHeader =
             request.headers.getFirst(HttpHeaders.AUTHORIZATION)
         if (authHeader != null && authHeader.startsWith(yamlConfig.token_prefix!!)) {

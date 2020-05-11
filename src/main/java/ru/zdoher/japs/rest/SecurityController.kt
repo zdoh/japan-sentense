@@ -23,14 +23,18 @@ data class SecurityController(
     fun login(@RequestBody authRequest: AuthRequest): Mono<ResponseEntity<*>> {
         val user = userRepository.findByUsername(authRequest.username)
 
-        return user.map { obj: User -> obj.toUserDetails() }
+        return user
+            .map { obj: User ->
+                obj.toUserDetails()
+            }
             .map {
                 if (BCrypt.checkpw(authRequest.password, it.password)) {
-                    return@map ResponseEntity.ok(jwtUtil.generateToken(it))
+                    ResponseEntity.ok(jwtUtil.generateToken(it))
                 } else {
-                    return@map ResponseEntity.status(HttpStatus.UNAUTHORIZED).build<Any>()
+                    ResponseEntity.status(HttpStatus.UNAUTHORIZED).build<Any>()
                 }
-            }.defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build())
+            }
+            .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build())
     }
 
 }

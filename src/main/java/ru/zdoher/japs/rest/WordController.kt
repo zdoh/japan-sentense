@@ -23,6 +23,6 @@ class WordController(private val wordRepositories: WordRepositories) {
     fun insert(@RequestBody word: Word): Mono<Word> = wordRepositories.save(word)
 
     @GetMapping("/random")
-    fun random(): Mono<Word> = wordRepositories.getRandom(Word::class)
+    fun random(): Mono<Word> = wordRepositories.getRandom(Word::class.java)
 
 }

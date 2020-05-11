@@ -12,5 +12,5 @@ import ru.zdoher.japs.repositories.KanjiRepository
 class KanjiController(private val kanjiRepository: KanjiRepository) {
 
     @GetMapping("/random")
-    fun random(): Mono<Kanji> =  kanjiRepository.getRandom(Kanji::class)
+    fun random(): Mono<Kanji> =  kanjiRepository.getRandom(Kanji::class.java)
 }

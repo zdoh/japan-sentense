@@ -12,5 +12,5 @@ import ru.zdoher.japs.repositories.sentence.SentenceRepository
 class SentenceController(private val sentenceRepository: SentenceRepository) {
 
     @GetMapping("/random")
-    fun studySentence(): Mono<Sentence> = sentenceRepository.getRandom(Sentence::class)
+    fun studySentence(): Mono<Sentence> = sentenceRepository.getRandom(Sentence::class.java)
 }
